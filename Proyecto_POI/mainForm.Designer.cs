@@ -29,29 +29,43 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.salirBtn = new System.Windows.Forms.Button();
+            this.cuentaBtn = new System.Windows.Forms.Button();
             this.chatsBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chatViewPanel = new System.Windows.Forms.Panel();
+            this.cuentaPanel = new System.Windows.Forms.Panel();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
+            this.textBoxPass = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxUser = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.editAceptarBtn = new System.Windows.Forms.Button();
+            this.editCancelarBtn = new System.Windows.Forms.Button();
+            this.editBtn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.correoBtn = new System.Windows.Forms.Button();
+            this.videoBtn = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.archivoBtn = new System.Windows.Forms.Button();
+            this.sendBtn = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.chatViewPanel.SuspendLayout();
+            this.cuentaPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.CadetBlue;
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.salirBtn);
+            this.panel1.Controls.Add(this.cuentaBtn);
             this.panel1.Controls.Add(this.chatsBtn);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -61,16 +75,37 @@
             this.panel1.Size = new System.Drawing.Size(564, 88);
             this.panel1.TabIndex = 0;
             // 
-            // label2
+            // salirBtn
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
-            this.label2.Location = new System.Drawing.Point(38, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 44);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Chat";
+            this.salirBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.salirBtn.FlatAppearance.BorderSize = 0;
+            this.salirBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.salirBtn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.salirBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.salirBtn.Location = new System.Drawing.Point(406, 23);
+            this.salirBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.salirBtn.Name = "salirBtn";
+            this.salirBtn.Size = new System.Drawing.Size(120, 61);
+            this.salirBtn.TabIndex = 4;
+            this.salirBtn.Text = "Salir";
+            this.salirBtn.UseVisualStyleBackColor = false;
+            this.salirBtn.Click += new System.EventHandler(this.salirBtn_Click);
+            // 
+            // cuentaBtn
+            // 
+            this.cuentaBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.cuentaBtn.FlatAppearance.BorderSize = 0;
+            this.cuentaBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuentaBtn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cuentaBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.cuentaBtn.Location = new System.Drawing.Point(280, 23);
+            this.cuentaBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cuentaBtn.Name = "cuentaBtn";
+            this.cuentaBtn.Size = new System.Drawing.Size(120, 61);
+            this.cuentaBtn.TabIndex = 4;
+            this.cuentaBtn.Text = "Cuenta";
+            this.cuentaBtn.UseVisualStyleBackColor = false;
+            this.cuentaBtn.Click += new System.EventHandler(this.cuentaBtn_Click);
             // 
             // chatsBtn
             // 
@@ -86,6 +121,18 @@
             this.chatsBtn.TabIndex = 4;
             this.chatsBtn.Text = "Chats";
             this.chatsBtn.UseVisualStyleBackColor = false;
+            this.chatsBtn.Click += new System.EventHandler(this.chatsBtn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
+            this.label2.Location = new System.Drawing.Point(38, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 44);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Chat";
             // 
             // panel2
             // 
@@ -97,47 +144,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(158, 372);
             this.panel2.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.CadetBlue;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.MintCream;
-            this.button1.Location = new System.Drawing.Point(280, 23);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 61);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Perfil";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.CadetBlue;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.MintCream;
-            this.button2.Location = new System.Drawing.Point(406, 23);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 61);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Salir";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(56, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Chats";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // listBox1
             // 
@@ -151,43 +157,201 @@
             this.listBox1.Size = new System.Drawing.Size(120, 285);
             this.listBox1.TabIndex = 6;
             // 
-            // label1
+            // label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(180, 113);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "NombreContacto";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(56, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 16);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Chats";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox1
+            // chatViewPanel
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(184, 319);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(346, 69);
-            this.textBox1.TabIndex = 6;
+            this.chatViewPanel.Controls.Add(this.cuentaPanel);
+            this.chatViewPanel.Controls.Add(this.correoBtn);
+            this.chatViewPanel.Controls.Add(this.videoBtn);
+            this.chatViewPanel.Controls.Add(this.listBox2);
+            this.chatViewPanel.Controls.Add(this.archivoBtn);
+            this.chatViewPanel.Controls.Add(this.sendBtn);
+            this.chatViewPanel.Controls.Add(this.textBox1);
+            this.chatViewPanel.Controls.Add(this.label1);
+            this.chatViewPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.chatViewPanel.Location = new System.Drawing.Point(154, 88);
+            this.chatViewPanel.Name = "chatViewPanel";
+            this.chatViewPanel.Size = new System.Drawing.Size(410, 372);
+            this.chatViewPanel.TabIndex = 2;
             // 
-            // button3
+            // cuentaPanel
             // 
-            this.button3.BackColor = System.Drawing.Color.DarkSalmon;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.MintCream;
-            this.button3.Location = new System.Drawing.Point(184, 406);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(118, 28);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Enviar";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.cuentaPanel.Controls.Add(this.textBoxMail);
+            this.cuentaPanel.Controls.Add(this.textBoxPass);
+            this.cuentaPanel.Controls.Add(this.label5);
+            this.cuentaPanel.Controls.Add(this.label6);
+            this.cuentaPanel.Controls.Add(this.textBoxUser);
+            this.cuentaPanel.Controls.Add(this.label7);
+            this.cuentaPanel.Controls.Add(this.editAceptarBtn);
+            this.cuentaPanel.Controls.Add(this.editCancelarBtn);
+            this.cuentaPanel.Controls.Add(this.editBtn);
+            this.cuentaPanel.Controls.Add(this.label4);
+            this.cuentaPanel.Location = new System.Drawing.Point(22, 25);
+            this.cuentaPanel.Name = "cuentaPanel";
+            this.cuentaPanel.Size = new System.Drawing.Size(358, 335);
+            this.cuentaPanel.TabIndex = 15;
+            // 
+            // textBoxMail
+            // 
+            this.textBoxMail.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxMail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxMail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxMail.Location = new System.Drawing.Point(89, 205);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(169, 19);
+            this.textBoxMail.TabIndex = 18;
+            // 
+            // textBoxPass
+            // 
+            this.textBoxPass.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPass.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPass.Location = new System.Drawing.Point(89, 137);
+            this.textBoxPass.Name = "textBoxPass";
+            this.textBoxPass.Size = new System.Drawing.Size(169, 19);
+            this.textBoxPass.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(85, 46);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Usuario";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(85, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 16);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "E-mail";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // textBoxUser
+            // 
+            this.textBoxUser.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUser.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUser.Location = new System.Drawing.Point(89, 68);
+            this.textBoxUser.Name = "textBoxUser";
+            this.textBoxUser.Size = new System.Drawing.Size(169, 19);
+            this.textBoxUser.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(85, 115);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 16);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Contraseña";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // editAceptarBtn
+            // 
+            this.editAceptarBtn.BackColor = System.Drawing.Color.DarkSalmon;
+            this.editAceptarBtn.FlatAppearance.BorderSize = 0;
+            this.editAceptarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editAceptarBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editAceptarBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.editAceptarBtn.Location = new System.Drawing.Point(63, 249);
+            this.editAceptarBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.editAceptarBtn.Name = "editAceptarBtn";
+            this.editAceptarBtn.Size = new System.Drawing.Size(78, 26);
+            this.editAceptarBtn.TabIndex = 14;
+            this.editAceptarBtn.Text = "Aceptar";
+            this.editAceptarBtn.UseVisualStyleBackColor = false;
+            this.editAceptarBtn.Click += new System.EventHandler(this.editAceptarBtn_Click);
+            // 
+            // editCancelarBtn
+            // 
+            this.editCancelarBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.editCancelarBtn.FlatAppearance.BorderSize = 0;
+            this.editCancelarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editCancelarBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editCancelarBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.editCancelarBtn.Location = new System.Drawing.Point(184, 249);
+            this.editCancelarBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.editCancelarBtn.Name = "editCancelarBtn";
+            this.editCancelarBtn.Size = new System.Drawing.Size(85, 26);
+            this.editCancelarBtn.TabIndex = 14;
+            this.editCancelarBtn.Text = "Cancelar";
+            this.editCancelarBtn.UseVisualStyleBackColor = false;
+            this.editCancelarBtn.Click += new System.EventHandler(this.editCancelarBtn_Click);
+            // 
+            // editBtn
+            // 
+            this.editBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.editBtn.FlatAppearance.BorderSize = 0;
+            this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.editBtn.Location = new System.Drawing.Point(107, 9);
+            this.editBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(76, 26);
+            this.editBtn.TabIndex = 14;
+            this.editBtn.Text = "Editar";
+            this.editBtn.UseVisualStyleBackColor = false;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 19);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Mi Cuenta";
+            // 
+            // correoBtn
+            // 
+            this.correoBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.correoBtn.FlatAppearance.BorderSize = 0;
+            this.correoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.correoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.correoBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.correoBtn.Location = new System.Drawing.Point(173, 25);
+            this.correoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.correoBtn.Name = "correoBtn";
+            this.correoBtn.Size = new System.Drawing.Size(74, 26);
+            this.correoBtn.TabIndex = 13;
+            this.correoBtn.Text = "Correo";
+            this.correoBtn.UseVisualStyleBackColor = false;
+            this.correoBtn.Click += new System.EventHandler(this.correoBtn_Click_1);
+            // 
+            // videoBtn
+            // 
+            this.videoBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.videoBtn.FlatAppearance.BorderSize = 0;
+            this.videoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.videoBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.videoBtn.Location = new System.Drawing.Point(256, 25);
+            this.videoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.videoBtn.Name = "videoBtn";
+            this.videoBtn.Size = new System.Drawing.Size(124, 26);
+            this.videoBtn.TabIndex = 14;
+            this.videoBtn.Text = "Videollamada";
+            this.videoBtn.UseVisualStyleBackColor = false;
+            this.videoBtn.Click += new System.EventHandler(this.videoBtn_Click_1);
             // 
             // listBox2
             // 
@@ -195,57 +359,64 @@
             this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 19;
-            this.listBox2.Location = new System.Drawing.Point(184, 148);
+            this.listBox2.Location = new System.Drawing.Point(34, 62);
             this.listBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(346, 152);
-            this.listBox2.TabIndex = 6;
+            this.listBox2.TabIndex = 11;
             // 
-            // button4
+            // archivoBtn
             // 
-            this.button4.BackColor = System.Drawing.Color.CadetBlue;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.MintCream;
-            this.button4.Location = new System.Drawing.Point(406, 111);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(124, 26);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Videollamada";
-            this.button4.UseVisualStyleBackColor = false;
+            this.archivoBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.archivoBtn.FlatAppearance.BorderSize = 0;
+            this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.archivoBtn.Location = new System.Drawing.Point(173, 320);
+            this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.archivoBtn.Name = "archivoBtn";
+            this.archivoBtn.Size = new System.Drawing.Size(118, 28);
+            this.archivoBtn.TabIndex = 8;
+            this.archivoBtn.Text = "Archivo";
+            this.archivoBtn.UseVisualStyleBackColor = false;
+            this.archivoBtn.Click += new System.EventHandler(this.archivoBtn_Click_1);
             // 
-            // button5
+            // sendBtn
             // 
-            this.button5.BackColor = System.Drawing.Color.CadetBlue;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.MintCream;
-            this.button5.Location = new System.Drawing.Point(323, 111);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 26);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Correo";
-            this.button5.UseVisualStyleBackColor = false;
+            this.sendBtn.BackColor = System.Drawing.Color.DarkSalmon;
+            this.sendBtn.FlatAppearance.BorderSize = 0;
+            this.sendBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sendBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.sendBtn.Location = new System.Drawing.Point(34, 320);
+            this.sendBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.sendBtn.Name = "sendBtn";
+            this.sendBtn.Size = new System.Drawing.Size(118, 28);
+            this.sendBtn.TabIndex = 9;
+            this.sendBtn.Text = "Enviar";
+            this.sendBtn.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // textBox1
             // 
-            this.button6.BackColor = System.Drawing.Color.CadetBlue;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.MintCream;
-            this.button6.Location = new System.Drawing.Point(323, 406);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(118, 28);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Archivo";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button3_Click);
+            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(34, 233);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(346, 69);
+            this.textBox1.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(30, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 18);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "NombreContacto";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // mainForm
             // 
@@ -253,19 +424,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(564, 460);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.chatViewPanel);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "mainForm";
@@ -274,8 +439,11 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.chatViewPanel.ResumeLayout(false);
+            this.chatViewPanel.PerformLayout();
+            this.cuentaPanel.ResumeLayout(false);
+            this.cuentaPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -283,18 +451,30 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button salirBtn;
+        private System.Windows.Forms.Button cuentaBtn;
         private System.Windows.Forms.Button chatsBtn;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel chatViewPanel;
+        private System.Windows.Forms.Button correoBtn;
+        private System.Windows.Forms.Button videoBtn;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button archivoBtn;
+        private System.Windows.Forms.Button sendBtn;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel cuentaPanel;
+        private System.Windows.Forms.Button editBtn;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxMail;
+        private System.Windows.Forms.TextBox textBoxPass;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxUser;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button editAceptarBtn;
+        private System.Windows.Forms.Button editCancelarBtn;
     }
 }

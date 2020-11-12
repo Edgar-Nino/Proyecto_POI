@@ -76,7 +76,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(66, 181);
+            this.label3.Location = new System.Drawing.Point(68, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 18);
             this.label3.TabIndex = 6;
@@ -86,7 +86,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(66, 225);
+            this.label4.Location = new System.Drawing.Point(68, 193);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 18);
             this.label4.TabIndex = 6;
@@ -97,7 +97,7 @@
             this.textBoxUser.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUser.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUser.Location = new System.Drawing.Point(200, 180);
+            this.textBoxUser.Location = new System.Drawing.Point(202, 148);
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(262, 19);
             this.textBoxUser.TabIndex = 9;
@@ -107,7 +107,7 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.Control;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(200, 225);
+            this.textBox1.Location = new System.Drawing.Point(202, 193);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(262, 19);
             this.textBox1.TabIndex = 9;
@@ -117,7 +117,7 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(200, 272);
+            this.textBox2.Location = new System.Drawing.Point(202, 240);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(300, 95);
@@ -127,7 +127,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(64, 272);
+            this.label5.Location = new System.Drawing.Point(66, 240);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 18);
             this.label5.TabIndex = 6;
@@ -140,12 +140,13 @@
             this.salirBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.salirBtn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.salirBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.salirBtn.Location = new System.Drawing.Point(302, 397);
+            this.salirBtn.Location = new System.Drawing.Point(304, 365);
             this.salirBtn.Name = "salirBtn";
             this.salirBtn.Size = new System.Drawing.Size(108, 27);
             this.salirBtn.TabIndex = 12;
             this.salirBtn.Text = "Cancelar";
             this.salirBtn.UseVisualStyleBackColor = false;
+            this.salirBtn.Click += new System.EventHandler(this.salirBtn_Click);
             // 
             // aceptarBtn
             // 
@@ -154,12 +155,13 @@
             this.aceptarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aceptarBtn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aceptarBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.aceptarBtn.Location = new System.Drawing.Point(143, 397);
+            this.aceptarBtn.Location = new System.Drawing.Point(145, 365);
             this.aceptarBtn.Name = "aceptarBtn";
             this.aceptarBtn.Size = new System.Drawing.Size(108, 27);
             this.aceptarBtn.TabIndex = 13;
             this.aceptarBtn.Text = "Enviar";
             this.aceptarBtn.UseVisualStyleBackColor = false;
+            this.aceptarBtn.Click += new System.EventHandler(this.aceptarBtn_Click);
             // 
             // correoForm
             // 
@@ -180,8 +182,9 @@
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "correoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "correoForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

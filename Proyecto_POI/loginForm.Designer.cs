@@ -127,6 +127,7 @@
             this.aceptarBtn.TabIndex = 3;
             this.aceptarBtn.Text = "Aceptar";
             this.aceptarBtn.UseVisualStyleBackColor = false;
+            this.aceptarBtn.Click += new System.EventHandler(this.aceptarBtn_Click);
             // 
             // salirBtn
             // 
@@ -141,6 +142,7 @@
             this.salirBtn.TabIndex = 3;
             this.salirBtn.Text = "Salir";
             this.salirBtn.UseVisualStyleBackColor = false;
+            this.salirBtn.Click += new System.EventHandler(this.salirBtn_Click);
             // 
             // cuentaBtn
             // 
@@ -155,6 +157,7 @@
             this.cuentaBtn.TabIndex = 3;
             this.cuentaBtn.Text = "Crear cuenta";
             this.cuentaBtn.UseVisualStyleBackColor = false;
+            this.cuentaBtn.Click += new System.EventHandler(this.cuentaBtn_Click);
             // 
             // formLogin
             // 
@@ -173,7 +176,7 @@
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Iniciar Sesión";

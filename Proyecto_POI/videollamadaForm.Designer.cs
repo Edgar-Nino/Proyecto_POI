@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(videollamadaForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.salirBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -47,6 +47,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(564, 83);
             this.panel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
+            this.label2.Location = new System.Drawing.Point(238, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 44);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Chat";
             // 
             // pictureBox1
             // 
@@ -72,17 +83,7 @@
             this.salirBtn.TabIndex = 4;
             this.salirBtn.Text = "Colgar";
             this.salirBtn.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
-            this.label2.Location = new System.Drawing.Point(238, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 44);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Chat";
+            this.salirBtn.Click += new System.EventHandler(this.salirBtn_Click);
             // 
             // label1
             // 
@@ -106,7 +107,7 @@
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "videollamadaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "videollamadaForm";

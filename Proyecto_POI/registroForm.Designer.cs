@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_POI
 {
-    partial class resgistroForm
+    partial class registroForm
     {
         /// <summary>
         /// Required designer variable.
@@ -76,6 +76,7 @@
             this.salirBtn.TabIndex = 10;
             this.salirBtn.Text = "Cancelar";
             this.salirBtn.UseVisualStyleBackColor = false;
+            this.salirBtn.Click += new System.EventHandler(this.salirBtn_Click);
             // 
             // aceptarBtn
             // 
@@ -90,6 +91,7 @@
             this.aceptarBtn.TabIndex = 11;
             this.aceptarBtn.Text = "Aceptar";
             this.aceptarBtn.UseVisualStyleBackColor = false;
+            this.aceptarBtn.Click += new System.EventHandler(this.aceptarBtn_Click);
             // 
             // textBoxPass
             // 
@@ -164,7 +166,7 @@
             this.textBox1.Size = new System.Drawing.Size(169, 19);
             this.textBox1.TabIndex = 7;
             // 
-            // resgistroForm
+            // registroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -183,8 +185,9 @@
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "resgistroForm";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "registroForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "resgistroForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

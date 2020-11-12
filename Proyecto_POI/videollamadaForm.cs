@@ -16,5 +16,13 @@ namespace Proyecto_POI
         {
             InitializeComponent();
         }
+
+        private void salirBtn_Click(object sender, EventArgs e)
+        {
+            mainForm newForm = new mainForm();
+            this.Hide();
+            newForm.ShowDialog();
+            this.Close();
+        }
     }
 }

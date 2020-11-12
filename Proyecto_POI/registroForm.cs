@@ -10,22 +10,22 @@ using System.Windows.Forms;
 
 namespace Proyecto_POI
 {
-    public partial class correoForm : Form
+    public partial class registroForm : Form
     {
-        public correoForm()
+        public registroForm()
         {
             InitializeComponent();
         }
 
-        private void aceptarBtn_Click(object sender, EventArgs e)
+        private void salirBtn_Click(object sender, EventArgs e)
         {
-            mainForm newForm = new mainForm();
+            formLogin newForm = new formLogin();
             this.Hide();
             newForm.ShowDialog();
             this.Close();
         }
 
-        private void salirBtn_Click(object sender, EventArgs e)
+        private void aceptarBtn_Click(object sender, EventArgs e)
         {
             mainForm newForm = new mainForm();
             this.Hide();
