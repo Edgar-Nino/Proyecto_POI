@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Proyecto_POI
 {
-    public partial class formLogin : Form
+    public partial class resgistroForm : Form
     {
-        public formLogin()
+        public resgistroForm()
         {
             InitializeComponent();
         }

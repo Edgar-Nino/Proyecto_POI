@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Proyecto_POI
 {
-    public partial class formLogin : Form
+    public partial class mainForm : Form
     {
-        public formLogin()
+        public mainForm()
         {
             InitializeComponent();
+        }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
