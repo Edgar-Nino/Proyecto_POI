@@ -43,7 +43,7 @@ namespace Proyecto_POI
             }
             catch (Exception)
             {
-                addMessage("Ocurrio un problema al establecer la conexion.");
+                //addMessage("Ocurrio un problema al establecer la conexion.");
             }
         }
 

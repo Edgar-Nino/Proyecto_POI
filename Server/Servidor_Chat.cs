@@ -50,7 +50,9 @@ namespace Server
                 {
                     Utilidades.sendMessage(stream, toSend);
                 }
+                //Aqui en algun lugarrrrrrr, cuando se desconecta hay que hacer un .remove(network) a networks 
             }
+
         }
 
         /*private TcpListener server;
