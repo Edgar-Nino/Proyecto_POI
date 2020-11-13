@@ -8,9 +8,9 @@ namespace Server
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            Servidor_Chat Chat = new Servidor_Chat();
-        }
+        //static void Main(string[] args)
+        //{
+        //    Servidor_Chat Chat = new Servidor_Chat();
+        //}
     }
 }

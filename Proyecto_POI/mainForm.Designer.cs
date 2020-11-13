@@ -50,10 +50,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.correoBtn = new System.Windows.Forms.Button();
             this.videoBtn = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listChat = new System.Windows.Forms.ListBox();
             this.archivoBtn = new System.Windows.Forms.Button();
             this.sendBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.editMensaje = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -173,10 +173,10 @@
             this.chatViewPanel.Controls.Add(this.cuentaPanel);
             this.chatViewPanel.Controls.Add(this.correoBtn);
             this.chatViewPanel.Controls.Add(this.videoBtn);
-            this.chatViewPanel.Controls.Add(this.listBox2);
+            this.chatViewPanel.Controls.Add(this.listChat);
             this.chatViewPanel.Controls.Add(this.archivoBtn);
             this.chatViewPanel.Controls.Add(this.sendBtn);
-            this.chatViewPanel.Controls.Add(this.textBox1);
+            this.chatViewPanel.Controls.Add(this.editMensaje);
             this.chatViewPanel.Controls.Add(this.label1);
             this.chatViewPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.chatViewPanel.Location = new System.Drawing.Point(154, 88);
@@ -198,7 +198,7 @@
             this.cuentaPanel.Controls.Add(this.label4);
             this.cuentaPanel.Location = new System.Drawing.Point(22, 25);
             this.cuentaPanel.Name = "cuentaPanel";
-            this.cuentaPanel.Size = new System.Drawing.Size(358, 335);
+            this.cuentaPanel.Size = new System.Drawing.Size(358, 201);
             this.cuentaPanel.TabIndex = 15;
             // 
             // textBoxMail
@@ -353,17 +353,17 @@
             this.videoBtn.UseVisualStyleBackColor = false;
             this.videoBtn.Click += new System.EventHandler(this.videoBtn_Click_1);
             // 
-            // listBox2
+            // listChat
             // 
-            this.listBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 19;
-            this.listBox2.Location = new System.Drawing.Point(34, 62);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(346, 152);
-            this.listBox2.TabIndex = 11;
+            this.listChat.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.listChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listChat.FormattingEnabled = true;
+            this.listChat.ItemHeight = 19;
+            this.listChat.Location = new System.Drawing.Point(34, 62);
+            this.listChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listChat.Name = "listChat";
+            this.listChat.Size = new System.Drawing.Size(346, 152);
+            this.listChat.TabIndex = 11;
             // 
             // archivoBtn
             // 
@@ -395,17 +395,18 @@
             this.sendBtn.TabIndex = 9;
             this.sendBtn.Text = "Enviar";
             this.sendBtn.UseVisualStyleBackColor = false;
+            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click_1);
             // 
-            // textBox1
+            // editMensaje
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(34, 233);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(346, 69);
-            this.textBox1.TabIndex = 12;
+            this.editMensaje.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.editMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.editMensaje.Location = new System.Drawing.Point(34, 233);
+            this.editMensaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.editMensaje.Multiline = true;
+            this.editMensaje.Name = "editMensaje";
+            this.editMensaje.Size = new System.Drawing.Size(346, 69);
+            this.editMensaje.TabIndex = 12;
             // 
             // label1
             // 
@@ -460,10 +461,10 @@
         private System.Windows.Forms.Panel chatViewPanel;
         private System.Windows.Forms.Button correoBtn;
         private System.Windows.Forms.Button videoBtn;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listChat;
         private System.Windows.Forms.Button archivoBtn;
         private System.Windows.Forms.Button sendBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox editMensaje;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel cuentaPanel;
         private System.Windows.Forms.Button editBtn;

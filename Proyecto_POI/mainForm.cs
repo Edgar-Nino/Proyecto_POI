@@ -4,21 +4,55 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utilities;
 
 namespace Proyecto_POI
 {
     public partial class mainForm : Form
     {
+
+        public delegate void delegar(string toAdd);
+
+        NetworkStream network;
+
         public mainForm()
         {
             InitializeComponent();
+            new Thread(() => { connect(); }).Start();
         }
 
-        private void mainForm_Load(object sender, EventArgs e)
-        {
+        public void connect() {
+            try
+            {
+                int port = 8080;
+                string IP = "127.0.0.1";
+                TcpClient client = new TcpClient(IP, port);
+
+                addMessage("Conectado.");
+
+                network = client.GetStream();
+                while (true) {
+                    string message = Utilidades.getMessage(network);
+                    addMessage(message);
+                }
+            }
+            catch (Exception)
+            {
+                addMessage("Ocurrio un problema al establecer la conexion.");
+            }
+        }
+
+        public void addMessage(string msgToAdd) {
+            delegar delegado = new delegar((string toAdd) => { listChat.Items.Add(toAdd); });
+            listChat.BeginInvoke(delegado, msgToAdd);
+        }
+
+        private void mainForm_Load(object sender, EventArgs e) {
             cuentaPanel.Hide();
             textBoxUser.Enabled = false;
             textBoxPass.Enabled = false;
@@ -27,9 +61,10 @@ namespace Proyecto_POI
             editCancelarBtn.Enabled = false;
         }
 
-        private void sendBtn_Click(object sender, EventArgs e)
+        void sendBtn_Click(object sender, EventArgs e)
         {
-
+            Utilidades.sendMessage(network, editMensaje.Text);
+            editMensaje.Text = "";
         }
 
         private void correoBtn_Click(object sender, EventArgs e)
@@ -116,6 +151,12 @@ namespace Proyecto_POI
             this.Hide();
             newForm.ShowDialog();
             this.Close();
+        }
+
+        private void sendBtn_Click_1(object sender, EventArgs e)
+        {
+            Utilidades.sendMessage(network, editMensaje.Text);
+            editMensaje.Text = "";
         }
     }
 }

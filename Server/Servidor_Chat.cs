@@ -1,20 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using System.Threading;
-using System.Threading;
-using System.Net.Sockets;
-using System.IO;
-using System.Net;
+using Utilities;
 
 namespace Server
 {
     class Servidor_Chat
     {
-        private TcpListener server;
+        //Del profe ----------------------------------------------------------------------------------------------
+
+        public static int clients;
+        public static List<NetworkStream> networks;
+
+        static void Main(string [] args)
+        {
+            networks = new List<NetworkStream>();
+            clients = 0;
+            byte[] IP = new byte[] {127, 0, 0, 1};
+            int port = 8080;
+            IPAddress address = new IPAddress(IP);
+
+            TcpListener Listener = new TcpListener(address, port);
+            Listener.Start();
+
+            while (true) {
+                Console.WriteLine("Esperando a clientes...");
+                TcpClient client = Listener.AcceptTcpClient();
+                new Thread(() => { listen(client); }).Start();
+            }
+        }
+
+        public static void listen(TcpClient client) {
+            Console.WriteLine("Escuchando a un cliente...");
+            NetworkStream network = client.GetStream();
+            clients++;
+            int actualClient = clients;
+            networks.Add(network);
+            while (true) {
+                string clientMessage = Utilidades.getMessage(network);
+                string toSend = $"Usuario {actualClient}: {clientMessage}";
+                Console.WriteLine(toSend);
+                foreach (NetworkStream stream in networks)
+                {
+                    Utilidades.sendMessage(stream, toSend);
+                }
+            }
+        }
+
+        /*private TcpListener server;
         private TcpClient client = new TcpClient();
         private IPEndPoint ipenpoint = new IPEndPoint(IPAddress.Any,8000);
         private List<Connection> listConn = new List<Connection>();
@@ -89,5 +128,6 @@ namespace Server
                 }
             } while (true);
         }
+        */
     }
 }
