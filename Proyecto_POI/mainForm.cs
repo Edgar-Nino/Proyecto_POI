@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -16,40 +17,76 @@ namespace Proyecto_POI
     public partial class mainForm : Form
     {
 
-        public delegate void delegar(string toAdd);
+        public delegate void DAddItem(string toAdd);
 
-        NetworkStream network;
+        static private NetworkStream stream;
+        static private StreamWriter streamw;
+        static private StreamReader streamr;
+        static private TcpClient client = new TcpClient();
+        static private string username = "unknown";
+
+        private void AddItem(string s)
+        {
+            listChat.Items.Add(s);
+        }
+
+        public mainForm(string Param_username)
+        {
+            InitializeComponent();
+            username = Param_username;
+            Conectar();
+        }
 
         public mainForm()
         {
             InitializeComponent();
-            new Thread(() => { connect(); }).Start();
         }
 
-        public void connect() {
+        void Listen()
+        {
+            while(client.Connected)
+            {
+                try
+                {
+                    this.Invoke(new DAddItem(AddItem),streamr.ReadLine());
+                }catch(Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    MessageBox.Show("No se pudo conectar al servidor");
+                    Application.Exit();
+                }
+            }
+        }
+
+        void Conectar()
+        {
             try
             {
-                int port = 8080;
-                string IP = "127.0.0.1";
-                TcpClient client = new TcpClient(IP, port);
+                client.Connect("127.0.0.1", 8080);
+                if (client.Connected)
+                {
+                    Thread t = new Thread(Listen);
 
-                addMessage("Conectado.");
+                    stream = client.GetStream();
+                    streamw = new StreamWriter(stream);
+                    streamr = new StreamReader(stream);
 
-                network = client.GetStream();
-                while (true) {
-                    string message = Utilidades.getMessage(network);
-                    addMessage(message);
+                    streamw.WriteLine(username);
+                    streamw.Flush();
+
+                    t.Start();
+                }
+                else
+                {
+                    MessageBox.Show("Servidor no disponible");
                 }
             }
             catch (Exception)
             {
-                //addMessage("Ocurrio un problema al establecer la conexion.");
-            }
-        }
 
-        public void addMessage(string msgToAdd) {
-            delegar delegado = new delegar((string toAdd) => { listChat.Items.Add(toAdd); });
-            listChat.BeginInvoke(delegado, msgToAdd);
+                MessageBox.Show("Servidor no disponible");
+                Application.Exit();
+            }
         }
 
         private void mainForm_Load(object sender, EventArgs e) {
@@ -61,10 +98,11 @@ namespace Proyecto_POI
             editCancelarBtn.Enabled = false;
         }
 
-        void sendBtn_Click(object sender, EventArgs e)
+        private void sendBtn_Click(object sender, EventArgs e)
         {
-            Utilidades.sendMessage(network, editMensaje.Text);
-            editMensaje.Text = "";
+            streamw.WriteLine(editMensaje.Text);
+            streamw.Flush();
+            editMensaje.Clear();
         }
 
         private void correoBtn_Click(object sender, EventArgs e)
@@ -91,8 +129,8 @@ namespace Proyecto_POI
 
         private void salirBtn_Click(object sender, EventArgs e)
         {
-
-            Application.Exit();
+            Environment.Exit(0);
+            //Application.Exit();
         }
 
         private void cuentaBtn_Click(object sender, EventArgs e)
@@ -153,10 +191,6 @@ namespace Proyecto_POI
             this.Close();
         }
 
-        private void sendBtn_Click_1(object sender, EventArgs e)
-        {
-            Utilidades.sendMessage(network, editMensaje.Text);
-            editMensaje.Text = "";
-        }
+        
     }
 }

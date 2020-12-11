@@ -126,11 +126,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
             this.label2.Location = new System.Drawing.Point(38, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 44);
+            this.label2.Size = new System.Drawing.Size(101, 42);
             this.label2.TabIndex = 3;
             this.label2.Text = "Chat";
             // 
@@ -196,7 +196,7 @@
             this.cuentaPanel.Controls.Add(this.editCancelarBtn);
             this.cuentaPanel.Controls.Add(this.editBtn);
             this.cuentaPanel.Controls.Add(this.label4);
-            this.cuentaPanel.Location = new System.Drawing.Point(22, 25);
+            this.cuentaPanel.Location = new System.Drawing.Point(22, 48);
             this.cuentaPanel.Name = "cuentaPanel";
             this.cuentaPanel.Size = new System.Drawing.Size(358, 201);
             this.cuentaPanel.TabIndex = 15;
@@ -395,7 +395,7 @@
             this.sendBtn.TabIndex = 9;
             this.sendBtn.Text = "Enviar";
             this.sendBtn.UseVisualStyleBackColor = false;
-            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click_1);
+            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click);
             // 
             // editMensaje
             // 

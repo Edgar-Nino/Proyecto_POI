@@ -34,7 +34,7 @@ namespace Proyecto_POI
 
         private void aceptarBtn_Click(object sender, EventArgs e)
         {
-            mainForm newForm = new mainForm();
+            mainForm newForm = new mainForm(textBoxUser.Text);
             this.Hide();
             newForm.ShowDialog();
             this.Close();
