@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.DragControl = new System.Windows.Forms.Panel();
             this.salirBtn = new System.Windows.Forms.Button();
             this.cuentaBtn = new System.Windows.Forms.Button();
             this.chatsBtn = new System.Windows.Forms.Button();
@@ -54,26 +54,28 @@
             this.archivoBtn = new System.Windows.Forms.Button();
             this.sendBtn = new System.Windows.Forms.Button();
             this.editMensaje = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.l_Username = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.L_IsConnected = new System.Windows.Forms.Label();
+            this.DragControl.SuspendLayout();
             this.panel2.SuspendLayout();
             this.chatViewPanel.SuspendLayout();
             this.cuentaPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // DragControl
             // 
-            this.panel1.BackColor = System.Drawing.Color.CadetBlue;
-            this.panel1.Controls.Add(this.salirBtn);
-            this.panel1.Controls.Add(this.cuentaBtn);
-            this.panel1.Controls.Add(this.chatsBtn);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(564, 88);
-            this.panel1.TabIndex = 0;
+            this.DragControl.BackColor = System.Drawing.Color.CadetBlue;
+            this.DragControl.Controls.Add(this.salirBtn);
+            this.DragControl.Controls.Add(this.cuentaBtn);
+            this.DragControl.Controls.Add(this.chatsBtn);
+            this.DragControl.Controls.Add(this.label2);
+            this.DragControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DragControl.Location = new System.Drawing.Point(0, 0);
+            this.DragControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.DragControl.Name = "DragControl";
+            this.DragControl.Size = new System.Drawing.Size(564, 88);
+            this.DragControl.TabIndex = 0;
             // 
             // salirBtn
             // 
@@ -142,7 +144,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 88);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(158, 372);
+            this.panel2.Size = new System.Drawing.Size(158, 476);
             this.panel2.TabIndex = 1;
             // 
             // lb_Grupos
@@ -154,7 +156,7 @@
             this.lb_Grupos.Location = new System.Drawing.Point(22, 48);
             this.lb_Grupos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lb_Grupos.Name = "lb_Grupos";
-            this.lb_Grupos.Size = new System.Drawing.Size(120, 285);
+            this.lb_Grupos.Size = new System.Drawing.Size(120, 399);
             this.lb_Grupos.TabIndex = 6;
             this.lb_Grupos.SelectedValueChanged += new System.EventHandler(this.lb_Grupos_SelectedValueChanged);
             // 
@@ -171,6 +173,7 @@
             // 
             // chatViewPanel
             // 
+            this.chatViewPanel.Controls.Add(this.L_IsConnected);
             this.chatViewPanel.Controls.Add(this.cuentaPanel);
             this.chatViewPanel.Controls.Add(this.correoBtn);
             this.chatViewPanel.Controls.Add(this.videoBtn);
@@ -178,11 +181,11 @@
             this.chatViewPanel.Controls.Add(this.archivoBtn);
             this.chatViewPanel.Controls.Add(this.sendBtn);
             this.chatViewPanel.Controls.Add(this.editMensaje);
-            this.chatViewPanel.Controls.Add(this.label1);
+            this.chatViewPanel.Controls.Add(this.l_Username);
             this.chatViewPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.chatViewPanel.Location = new System.Drawing.Point(154, 88);
             this.chatViewPanel.Name = "chatViewPanel";
-            this.chatViewPanel.Size = new System.Drawing.Size(410, 372);
+            this.chatViewPanel.Size = new System.Drawing.Size(410, 476);
             this.chatViewPanel.TabIndex = 2;
             // 
             // cuentaPanel
@@ -197,9 +200,9 @@
             this.cuentaPanel.Controls.Add(this.editCancelarBtn);
             this.cuentaPanel.Controls.Add(this.editBtn);
             this.cuentaPanel.Controls.Add(this.label4);
-            this.cuentaPanel.Location = new System.Drawing.Point(22, 48);
+            this.cuentaPanel.Location = new System.Drawing.Point(33, 89);
             this.cuentaPanel.Name = "cuentaPanel";
-            this.cuentaPanel.Size = new System.Drawing.Size(358, 201);
+            this.cuentaPanel.Size = new System.Drawing.Size(358, 285);
             this.cuentaPanel.TabIndex = 15;
             // 
             // textBoxMail
@@ -329,7 +332,7 @@
             this.correoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.correoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.correoBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.correoBtn.Location = new System.Drawing.Point(173, 25);
+            this.correoBtn.Location = new System.Drawing.Point(173, 48);
             this.correoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.correoBtn.Name = "correoBtn";
             this.correoBtn.Size = new System.Drawing.Size(74, 26);
@@ -345,7 +348,7 @@
             this.videoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.videoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.videoBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.videoBtn.Location = new System.Drawing.Point(256, 25);
+            this.videoBtn.Location = new System.Drawing.Point(256, 48);
             this.videoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.videoBtn.Name = "videoBtn";
             this.videoBtn.Size = new System.Drawing.Size(124, 26);
@@ -360,10 +363,10 @@
             this.listChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listChat.FormattingEnabled = true;
             this.listChat.ItemHeight = 19;
-            this.listChat.Location = new System.Drawing.Point(34, 62);
+            this.listChat.Location = new System.Drawing.Point(34, 89);
             this.listChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listChat.Name = "listChat";
-            this.listChat.Size = new System.Drawing.Size(346, 152);
+            this.listChat.Size = new System.Drawing.Size(346, 228);
             this.listChat.TabIndex = 11;
             // 
             // archivoBtn
@@ -373,7 +376,7 @@
             this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.archivoBtn.Location = new System.Drawing.Point(173, 320);
+            this.archivoBtn.Location = new System.Drawing.Point(173, 417);
             this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.archivoBtn.Name = "archivoBtn";
             this.archivoBtn.Size = new System.Drawing.Size(118, 28);
@@ -389,7 +392,7 @@
             this.sendBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.sendBtn.Location = new System.Drawing.Point(34, 320);
+            this.sendBtn.Location = new System.Drawing.Point(33, 417);
             this.sendBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(118, 28);
@@ -402,43 +405,53 @@
             // 
             this.editMensaje.BackColor = System.Drawing.Color.WhiteSmoke;
             this.editMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.editMensaje.Location = new System.Drawing.Point(34, 233);
+            this.editMensaje.Location = new System.Drawing.Point(34, 329);
             this.editMensaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.editMensaje.Multiline = true;
             this.editMensaje.Name = "editMensaje";
             this.editMensaje.Size = new System.Drawing.Size(346, 69);
             this.editMensaje.TabIndex = 12;
             // 
-            // label1
+            // l_Username
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(30, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 18);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "NombreContacto";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.l_Username.AutoSize = true;
+            this.l_Username.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_Username.Location = new System.Drawing.Point(30, 50);
+            this.l_Username.Name = "l_Username";
+            this.l_Username.Size = new System.Drawing.Size(137, 18);
+            this.l_Username.TabIndex = 10;
+            this.l_Username.Text = "NombreContacto";
+            this.l_Username.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // L_IsConnected
+            // 
+            this.L_IsConnected.AutoSize = true;
+            this.L_IsConnected.Location = new System.Drawing.Point(150, 15);
+            this.L_IsConnected.Name = "L_IsConnected";
+            this.L_IsConnected.Size = new System.Drawing.Size(97, 19);
+            this.L_IsConnected.TabIndex = 16;
+            this.L_IsConnected.Text = "Conectado";
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(564, 460);
+            this.ClientSize = new System.Drawing.Size(564, 564);
             this.Controls.Add(this.chatViewPanel);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.DragControl);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "mainForm";
             this.Load += new System.EventHandler(this.mainForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.DragControl.ResumeLayout(false);
+            this.DragControl.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.chatViewPanel.ResumeLayout(false);
@@ -451,7 +464,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel DragControl;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button salirBtn;
         private System.Windows.Forms.Button cuentaBtn;
@@ -466,7 +479,7 @@
         private System.Windows.Forms.Button archivoBtn;
         private System.Windows.Forms.Button sendBtn;
         private System.Windows.Forms.TextBox editMensaje;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label l_Username;
         private System.Windows.Forms.Panel cuentaPanel;
         private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.Label label4;
@@ -478,5 +491,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button editAceptarBtn;
         private System.Windows.Forms.Button editCancelarBtn;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label L_IsConnected;
     }
 }

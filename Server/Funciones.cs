@@ -158,7 +158,20 @@ namespace Server
                 {
                     string msgPublic = Mapa.Serializar(grupo.Mensajes);
                     string nombregrupo = (grupo.esGrupo) ? grupo.nombreGrupo : grupoName;
-                    Paquete paquete = new Paquete("mensajesgrupo", grupo.esGrupo.ToString() + "," + msgPublic);
+
+                    users.Remove(hcon.username);
+
+                    string userC = "";
+
+                    foreach (Connection c in listConn)
+                    {
+                        if(c.username==users[0])
+                        {
+                            userC = "true";
+                        }
+                    }
+
+                    Paquete paquete = new Paquete("mensajesgrupo", grupo.esGrupo.ToString()+","+ userC + "," + msgPublic);
 
                     hcon.streamW.WriteLine(paquete);
                     hcon.streamW.Flush();
@@ -169,6 +182,31 @@ namespace Server
             Paquete paqueteVacio = new Paquete("mensajesgrupo", "");
             hcon.streamW.WriteLine(paqueteVacio);
             hcon.streamW.Flush();
+        }
+
+        public void seDesconecto(Connection hcon)
+        {
+            foreach (Connection c in listConn)
+            {
+                Paquete paquete = new Paquete("sedesconecto", hcon.username);
+
+                if(c.username != hcon.username)
+                {
+                    c.streamW.WriteLine(paquete);
+                    c.streamW.Flush();
+                }
+            }
+        }
+
+        public void seConecto(Connection hcon)
+        {
+            foreach (Connection c in listConn)
+            {
+                Paquete paquete = new Paquete("seconecto", hcon.username);
+
+                c.streamW.WriteLine(paquete);
+                c.streamW.Flush();
+            }
         }
     }
 }

@@ -48,6 +48,7 @@ namespace Proyecto_POI
                         listChat.Items.Clear();
 
                         videoBtn.Enabled = false;
+                        correoBtn.Enabled = false;
 
                         List<string> listaMensajes = Mapa.Deserializar(paquete.Contenido);
 
@@ -72,20 +73,35 @@ namespace Proyecto_POI
 
                         listChat.Items.Clear();
 
-                        if (listaMensajes.Count!=0)
+                        if (listaMensajes.Count != 0)
                         {
+                            L_IsConnected.Text = "";
+
                             string esGrupo = listaMensajes.First();
 
                             videoBtn.Enabled = (esGrupo == "true") ? false : true;
+                            correoBtn.Enabled = (esGrupo == "true") ? false : true;
 
                             listaMensajes.RemoveAt(0);
+
+                            string userC = listaMensajes.First();
+
+                            listaMensajes.RemoveAt(0);
+
+                            if(esGrupo!="true")
+                            {
+                                L_IsConnected.Text = (userC == "true") ? "Conectado" : "Desconectado";
+                            }
+                           
+
+                            
 
                             foreach (string mensaje in listaMensajes)
                             {
                                 listChat.Items.Add(mensaje);
                             }
                         }
-                        
+
                         break;
                     }
                 case "mensajegrupo":
@@ -100,13 +116,37 @@ namespace Proyecto_POI
                         }
                         break;
                     }
+                case "sedesconecto":
+                    {
+                        if (!(lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1))
+                        {
+                            if(lb_Grupos.Text==paquete.Contenido)
+                            {
+                                L_IsConnected.Text = "Desconectado";
+                            }
+                        }
+
+                        break;
+                    }
+                case "seconecto":
+                    {
+                        if (!(lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1))
+                        {
+                            if (lb_Grupos.Text == paquete.Contenido)
+                            {
+                                L_IsConnected.Text = "Conectado";
+                            }
+                        }
+
+                        break;
+                    }
             }
         }
 
         public mainForm(string Param_username)
         {
             InitializeComponent();
-
+            DragControl.Draggable(true);
             username = Param_username;
         }
 
@@ -176,6 +216,8 @@ namespace Proyecto_POI
             textBoxMail.Enabled = false;
             editAceptarBtn.Enabled = false;
             editCancelarBtn.Enabled = false;
+            L_IsConnected.Text = "";
+            l_Username.Text = username;
 
             while (!this.IsHandleCreated)
                 System.Threading.Thread.Sleep(1);
@@ -204,6 +246,7 @@ namespace Proyecto_POI
             {
                 if (lb_Grupos.SelectedIndex == 0)
                 {
+                    L_IsConnected.Text = "";
                     enviarPaquete("conseguirmensajespublicos", "");
                 }
                 else

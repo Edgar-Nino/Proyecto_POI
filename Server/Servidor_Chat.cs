@@ -122,6 +122,7 @@ namespace Server
                 }
 
                 listConn.Add(con);
+                seConecto(con);
                 Console.WriteLine(con.username + " Se ha conectado");
 
                 Thread t = new Thread(Escuchar_Conexion);
@@ -180,6 +181,7 @@ namespace Server
                 }
                 catch
                 {
+                    seDesconecto(hcon);
                     listConn.Remove(hcon);
                     Console.WriteLine(hcon.username + " se ha desconectado");
                     break;

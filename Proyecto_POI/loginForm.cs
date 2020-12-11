@@ -15,7 +15,7 @@ namespace Proyecto_POI
         public formLogin()
         {
             InitializeComponent();
-            
+            panel1.Draggable(true);
         }
 
         private void cuentaBtn_Click(object sender, EventArgs e)
