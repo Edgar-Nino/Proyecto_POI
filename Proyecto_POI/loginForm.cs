@@ -15,6 +15,7 @@ namespace Proyecto_POI
         public formLogin()
         {
             InitializeComponent();
+            
         }
 
         private void cuentaBtn_Click(object sender, EventArgs e)

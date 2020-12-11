@@ -11,7 +11,7 @@ using Utilities;
 
 namespace Server
 {
-    class Servidor_Chat
+    partial class Servidor_Chat
     {
         //Del profe ----------------------------------------------------------------------------------------------
 
@@ -55,20 +55,32 @@ namespace Server
 
         //}
 
-        private TcpListener server;
-        private TcpClient client = new TcpClient();
-        private IPEndPoint ipenpoint = new IPEndPoint(IPAddress.Any, 8080);
-        private List<Connection> listConn = new List<Connection>();
+        public List<String> messagesPublic = new List<String>();
+        public List<String> usuariosRegistrados = new List<String>(); 
+        public List<MensajesGrupo> mensajesGrupo = new List<MensajesGrupo>();
+
+        public TcpListener server;
+        public TcpClient client = new TcpClient();
+        public IPEndPoint ipenpoint = new IPEndPoint(IPAddress.Any, 8080);
+        public List<Connection> listConn = new List<Connection>();
 
         Connection con;
 
-        private struct Connection
+        public struct Connection
         {
             public TcpClient client;
             public NetworkStream stream;
             public StreamWriter streamW;
             public StreamReader streamR;
             public String username;
+        }
+
+        public struct MensajesGrupo
+        {
+            public List<string> Users;
+            public List<string> Mensajes;
+            public bool esGrupo;
+            public String nombreGrupo;
         }
 
         public Servidor_Chat()
@@ -94,6 +106,21 @@ namespace Server
 
                 con.username = con.streamR.ReadLine();
 
+                bool noEstaRegistrado = true;
+                foreach (string usuario in usuariosRegistrados)
+                {
+                    if(usuario==con.username)
+                    {
+                        noEstaRegistrado = false;
+                    }
+                }
+
+                if(noEstaRegistrado)
+                {
+                    usuariosRegistrados.Add(con.username);
+                    actualizarlistausuarios();
+                }
+
                 listConn.Add(con);
                 Console.WriteLine(con.username + " Se ha conectado");
 
@@ -108,36 +135,53 @@ namespace Server
         {
             Connection hcon = con;
 
+            foreach (string message in messagesPublic)
+            {
+                con.streamW.WriteLine(message);
+                con.streamW.Flush();
+            }
+
             do
             {
                 try
                 {
                     string tmp = hcon.streamR.ReadLine();
-                    Console.WriteLine(hcon.username + ": " + tmp);
-                    foreach (Connection c in listConn)
+
+                    Paquete paquete = new Paquete(tmp);
+
+                    switch(paquete.Comando)
                     {
-                        if (!IsConnected(c.client))
-                        {
-                            
-                                Console.WriteLine(c.username + "se ha desconectado");
-                                DisconnectClient(c.username);
-                                continue;
-                        }
-                        try
-                        {
-                            c.streamW.WriteLine(hcon.username + ": " + tmp);
-                            c.streamW.Flush();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Hubo un error jeje");
-                        }
+                        case "mensajepublico":
+                            {
+                                publicMessage(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "mensajegrupo":
+                            {
+                                groupMessage(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "conseguirusuarios":
+                            {
+                                conseguirUsuarios(hcon);
+                                break;
+                            }
+                        case "conseguirmensajespublicos":
+                            {
+                                conseguirMensajesPublicos(hcon);
+                                break;
+                            }
+                        case "conseguirmensajesgrupo":
+                            {
+                                conseguirMensajesGrupo(hcon, paquete.Contenido);
+                                break;
+                            }
                     }
                 }
                 catch
                 {
                     listConn.Remove(hcon);
-                    Console.WriteLine(con.username + " se ha desconectado");
+                    Console.WriteLine(hcon.username + " se ha desconectado");
                     break;
                 }
             } while (true);
@@ -151,48 +195,6 @@ namespace Server
                 {
                     listConn.Remove(client);
                 }
-            }
-        }
-
-        public bool IsConnected(TcpClient tcpclient)
-        {
-            try
-            {
-                if (tcpclient != null && tcpclient.Client != null && tcpclient.Client.Connected)
-                {
-                    /* pear to the documentation on Poll:
-                     * When passing SelectMode.SelectRead as a parameter to the Poll method it will return 
-                     * -either- true if Socket.Listen(Int32) has been called and a connection is pending;
-                     * -or- true if data is available for reading; 
-                     * -or- true if the connection has been closed, reset, or terminated; 
-                     * otherwise, returns false
-                     */
-
-                    // Detect if client disconnected
-                    if (tcpclient.Client.Poll(0, SelectMode.SelectRead))
-                    {
-                        byte[] buff = new byte[1];
-                        if (tcpclient.Client.Receive(buff, SocketFlags.Peek) == 0)
-                        {
-                            // Client disconnected
-                            return false;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
             }
         }
     }

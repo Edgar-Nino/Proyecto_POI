@@ -52,6 +52,9 @@
     <Compile Include="correoForm.Designer.cs">
       <DependentUpon>correoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Funciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>

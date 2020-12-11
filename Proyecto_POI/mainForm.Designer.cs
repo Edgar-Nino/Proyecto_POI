@@ -34,7 +34,7 @@
             this.chatsBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lb_Grupos = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chatViewPanel = new System.Windows.Forms.Panel();
             this.cuentaPanel = new System.Windows.Forms.Panel();
@@ -136,7 +136,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.listBox1);
+            this.panel2.Controls.Add(this.lb_Grupos);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 88);
@@ -145,17 +145,18 @@
             this.panel2.Size = new System.Drawing.Size(158, 372);
             this.panel2.TabIndex = 1;
             // 
-            // listBox1
+            // lb_Grupos
             // 
-            this.listBox1.BackColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 19;
-            this.listBox1.Location = new System.Drawing.Point(22, 48);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 285);
-            this.listBox1.TabIndex = 6;
+            this.lb_Grupos.BackColor = System.Drawing.Color.Gainsboro;
+            this.lb_Grupos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lb_Grupos.FormattingEnabled = true;
+            this.lb_Grupos.ItemHeight = 19;
+            this.lb_Grupos.Location = new System.Drawing.Point(22, 48);
+            this.lb_Grupos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lb_Grupos.Name = "lb_Grupos";
+            this.lb_Grupos.Size = new System.Drawing.Size(120, 285);
+            this.lb_Grupos.TabIndex = 6;
+            this.lb_Grupos.SelectedValueChanged += new System.EventHandler(this.lb_Grupos_SelectedValueChanged);
             // 
             // label3
             // 
@@ -456,7 +457,7 @@
         private System.Windows.Forms.Button cuentaBtn;
         private System.Windows.Forms.Button chatsBtn;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lb_Grupos;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel chatViewPanel;
         private System.Windows.Forms.Button correoBtn;
