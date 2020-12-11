@@ -108,6 +108,7 @@ namespace Server
 
         public void conseguirUsuarios(Connection hcon)
         {
+            var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
             string usuarios = Mapa.Serializar(usuariosRegistrados);
 
             Paquete paquete = new Paquete("usuariosregistrados", usuarios);
@@ -122,6 +123,7 @@ namespace Server
             {
                 try
                 {
+                    var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
                     string usuarios = Mapa.Serializar(usuariosRegistrados);
 
                     Paquete paquete = new Paquete("usuariosregistrados", usuarios);
@@ -206,6 +208,81 @@ namespace Server
 
                 c.streamW.WriteLine(paquete);
                 c.streamW.Flush();
+            }
+        }
+
+        public void crearGrupo(Connection hcon, string msg)
+        {
+            bool existe = true;
+            foreach (var grupo in mensajesGrupo)
+            {
+                if(grupo.nombreGrupo==msg)
+                {
+                    existe = false;
+                }
+            }
+            if(existe)
+            {
+                MensajesGrupo MGaux = new MensajesGrupo();
+                MGaux.Users = new List<string>();
+                MGaux.Mensajes = new List<string>();
+
+                MGaux.nombreGrupo = msg;
+                MGaux.Users.Add(hcon.username);
+                MGaux.esGrupo = true;
+                mensajesGrupo.Add(MGaux);
+            }
+        }
+        public void registrarUsuario(Connection hcon, string msg)
+        {
+            List<string> userdata = Mapa.Deserializar(msg);
+
+            Usuario useraux = new Usuario();
+
+            useraux.username = userdata[0];
+            useraux.password = userdata[1];
+            useraux.email = userdata[2];
+
+            bool noEstaRegistrado = true;
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == useraux.username)
+                {
+                    Paquete paquete = new Paquete("volverLoginRegister", "");
+                    noEstaRegistrado = false;
+                    hcon.streamW.WriteLine(paquete);
+                    hcon.streamW.Flush();
+                }
+            }
+
+            if (noEstaRegistrado)
+            {
+                usuariosRegister.Add(useraux);
+                actualizarlistausuarios();
+            }
+        }
+
+        public void ingresarUsuario(Connection hcon, string msg)
+        {
+            List<string> identificador = Mapa.Deserializar(msg);
+
+            bool noEsta = true;
+
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == identificador[0])
+                {
+                    if(usuario.password == identificador[1])
+                    {
+                        noEsta = false;
+                    }
+                }
+            }
+            if (noEsta)
+            {
+                Paquete paquete = new Paquete("volverLoginRegister", "");
+                hcon.streamW.WriteLine(paquete);
+                hcon.streamW.Flush();
             }
         }
     }

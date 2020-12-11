@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Utilities;
 namespace Proyecto_POI
 {
     public partial class formLogin : Form
@@ -35,7 +35,9 @@ namespace Proyecto_POI
 
         private void aceptarBtn_Click(object sender, EventArgs e)
         {
-            mainForm newForm = new mainForm(textBoxUser.Text);
+            Paquete paquete = new Paquete("ingresar", textBoxUser.Text + "," + textBoxPass.Text);
+            
+            mainForm newForm = new mainForm(paquete);
             this.Hide();
             newForm.ShowDialog();
             this.Close();

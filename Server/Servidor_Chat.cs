@@ -56,7 +56,11 @@ namespace Server
         //}
 
         public List<String> messagesPublic = new List<String>();
-        public List<String> usuariosRegistrados = new List<String>(); 
+
+        //public List<String> usuariosRegistrados = new List<String>();
+
+        public List<Usuario> usuariosRegister = new List<Usuario>();
+
         public List<MensajesGrupo> mensajesGrupo = new List<MensajesGrupo>();
 
         public TcpListener server;
@@ -65,6 +69,13 @@ namespace Server
         public List<Connection> listConn = new List<Connection>();
 
         Connection con;
+
+        public struct Usuario
+        {
+            public string username;
+            public string password;
+            public string email;
+        }
 
         public struct Connection
         {
@@ -106,21 +117,6 @@ namespace Server
 
                 con.username = con.streamR.ReadLine();
 
-                bool noEstaRegistrado = true;
-                foreach (string usuario in usuariosRegistrados)
-                {
-                    if(usuario==con.username)
-                    {
-                        noEstaRegistrado = false;
-                    }
-                }
-
-                if(noEstaRegistrado)
-                {
-                    usuariosRegistrados.Add(con.username);
-                    actualizarlistausuarios();
-                }
-
                 listConn.Add(con);
                 seConecto(con);
                 Console.WriteLine(con.username + " Se ha conectado");
@@ -136,11 +132,7 @@ namespace Server
         {
             Connection hcon = con;
 
-            foreach (string message in messagesPublic)
-            {
-                con.streamW.WriteLine(message);
-                con.streamW.Flush();
-            }
+
 
             do
             {
@@ -175,6 +167,16 @@ namespace Server
                         case "conseguirmensajesgrupo":
                             {
                                 conseguirMensajesGrupo(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "registrarse":
+                            {
+                                registrarUsuario(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "ingresar":
+                            {
+                                ingresarUsuario(hcon, paquete.Contenido);
                                 break;
                             }
                     }

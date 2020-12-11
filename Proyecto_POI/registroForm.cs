@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utilities;
 
 namespace Proyecto_POI
 {
@@ -27,7 +28,9 @@ namespace Proyecto_POI
 
         private void aceptarBtn_Click(object sender, EventArgs e)
         {
-            mainForm newForm = new mainForm();
+            Paquete paquete = new Paquete("registrarse", textBoxUser.Text + "," + textBoxPass.Text + "," + textBoxEmail.Text);
+
+            mainForm newForm = new mainForm(paquete);
             this.Hide();
             newForm.ShowDialog();
             this.Close();

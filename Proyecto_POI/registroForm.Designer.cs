@@ -38,7 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,11 +55,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
             this.label2.Location = new System.Drawing.Point(153, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 44);
+            this.label2.Size = new System.Drawing.Size(101, 42);
             this.label2.TabIndex = 2;
             this.label2.Text = "Chat";
             // 
@@ -156,15 +156,15 @@
             this.label5.Text = "E-mail";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox1
+            // textBoxEmail
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(112, 302);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(169, 19);
-            this.textBox1.TabIndex = 7;
+            this.textBoxEmail.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxEmail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxEmail.Location = new System.Drawing.Point(112, 302);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(169, 19);
+            this.textBoxEmail.TabIndex = 7;
             // 
             // registroForm
             // 
@@ -174,7 +174,7 @@
             this.ClientSize = new System.Drawing.Size(400, 400);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.salirBtn);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxPass);
             this.Controls.Add(this.aceptarBtn);
             this.Controls.Add(this.label1);
@@ -207,6 +207,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxEmail;
     }
 }

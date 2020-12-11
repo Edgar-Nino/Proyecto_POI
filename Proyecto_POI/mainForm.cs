@@ -25,6 +25,8 @@ namespace Proyecto_POI
         static private TcpClient client = new TcpClient();
         static private string username = "unknown";
 
+        static private Paquete paqueteInicial;
+
         private void EjecutarComando(string msg)
         {
             Paquete paquete = new Paquete(msg);
@@ -140,19 +142,29 @@ namespace Proyecto_POI
 
                         break;
                     }
+                case "volverLoginRegister":
+                    {
+                        formLogin newForm = new formLogin();
+                        this.Hide();
+                        newForm.ShowDialog();
+                        this.Close();
+                        break;
+                    }
             }
         }
 
-        public mainForm(string Param_username)
+        public mainForm(string paquete)
         {
             InitializeComponent();
             DragControl.Draggable(true);
-            username = Param_username;
+
+            paqueteInicial = new Paquete(paquete);
         }
 
         public mainForm()
         {
             InitializeComponent();
+            
         }
 
         void Listen()
@@ -168,7 +180,7 @@ namespace Proyecto_POI
                 {
                     MessageBox.Show(e.ToString());
                     MessageBox.Show("No se pudo conectar al servidor");
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
             }
         }
@@ -189,6 +201,10 @@ namespace Proyecto_POI
                     streamw.WriteLine(username);
                     streamw.Flush();
 
+                    List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
+
+                    enviarPaquete(paqueteInicial.Comando,paqueteInicial.Contenido);
+
                     enviarPaquete("conseguirusuarios", "");
 
                     enviarPaquete("conseguirmensajespublicos", "");
@@ -198,13 +214,14 @@ namespace Proyecto_POI
                 else
                 {
                     MessageBox.Show("Servidor no disponible");
+                    Environment.Exit(0);
                 }
             }
             catch (Exception)
             {
 
                 MessageBox.Show("Servidor no disponible");
-                Application.Exit();
+                Environment.Exit(0);
             }
         }
 
@@ -217,6 +234,11 @@ namespace Proyecto_POI
             editAceptarBtn.Enabled = false;
             editCancelarBtn.Enabled = false;
             L_IsConnected.Text = "";
+
+            List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
+
+            username = userContent[0];
+
             l_Username.Text = username;
 
             while (!this.IsHandleCreated)
