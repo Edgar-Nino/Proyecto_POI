@@ -63,16 +63,14 @@ namespace Proyecto_POI
         private void EjecutarComando(string msg)
         {
 
-            Paquete paquete = new Paquete(msg);
+            var key = "a1b2c3d4e5f6g7h8";
 
-            //var key = "a1b2c3d4e5f6g7h8";
+            string[] splitted = msg.Split(':');
 
-            //string[] splitted = msg.Split(':');
+            var decryptedCommand = Cifrado.DecryptString(key, splitted[0]);
+            var decryptedValues = Cifrado.DecryptString(key, splitted[1]);
 
-            //var decryptedCommand = Cifrado.DecryptString(key, splitted[0]);
-            //var decryptedValues = Cifrado.DecryptString(key, splitted[1]);
-
-            //Paquete paquete = new Paquete(decryptedCommand, decryptedValues);
+            Paquete paquete = new Paquete(decryptedCommand, decryptedValues);
 
             switch (paquete.Comando)
             {
@@ -208,15 +206,22 @@ namespace Proyecto_POI
 
                         if (!(lb_Grupos.Text == ""))
                         {
-                            if (lb_Grupos.Text == grupoNombre[0] || lb_Grupos.Text == grupoNombre[1])
+                            try
                             {
-                                string msgaux = Contenido[0];
-                                msgaux = msgaux.Replace("<3", "💜") ;
-                                msgaux = msgaux.Replace(";)", "😉") ;
-                                msgaux = msgaux.Replace("=D", "😃") ;
-                                msgaux = msgaux.Replace(">=(", "😡");
-                                listChat.Items.Add(msgaux);
+                                if (lb_Grupos.Text == grupoNombre[0] || lb_Grupos.Text == grupoNombre[1])
+                                {
+                                    string msgaux = Contenido[0];
+                                    msgaux = msgaux.Replace("<3", "💜");
+                                    msgaux = msgaux.Replace(";)", "😉");
+                                    msgaux = msgaux.Replace("=D", "😃");
+                                    msgaux = msgaux.Replace(">=(", "😡");
+                                    listChat.Items.Add(msgaux);
+                                }
+                            }catch
+                            {
+
                             }
+                            
                         }
                         break;
                     }

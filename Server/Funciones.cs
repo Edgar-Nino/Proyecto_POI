@@ -30,10 +30,7 @@ namespace Server
             {
                 try
                 {
-                    Paquete paquete = new Paquete("mensajepublico", message);
-
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "mensajepublico", message);
                 }
                 catch
                 {
@@ -107,11 +104,7 @@ namespace Server
                         if (c.username == user)
                         {
                             string grupoID = (msgGroup.esGrupo) ? msgGroup.nombreGrupo : msgGroup.Users[0] + ":" + msgGroup.Users[1];
-
-                            Paquete paquete = new Paquete("mensajegrupo", message + "," + grupoID);
-
-                            c.streamW.WriteLine(paquete);
-                            c.streamW.Flush();
+                            enviarPaqueteServer(c.streamW, "mensajegrupo", message + "," + grupoID);
                         }
                     }
                 }
@@ -133,10 +126,7 @@ namespace Server
             var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
             string usuarios = Mapa.Serializar(usuariosRegistrados);
 
-            Paquete paquete = new Paquete("usuariosregistrados", usuarios);
-
-            hcon.streamW.WriteLine(paquete);
-            hcon.streamW.Flush();
+            enviarPaqueteServer(hcon.streamW, "usuariosregistrados", usuarios);
         }
 
         /// <summary>
@@ -151,11 +141,7 @@ namespace Server
                     var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
                     string usuarios = Mapa.Serializar(usuariosRegistrados);
 
-
-
-                    Paquete paquete = new Paquete("usuariosregistrados", usuarios);
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "usuariosregistrados", usuarios);
 
                 }
                 catch
@@ -190,10 +176,7 @@ namespace Server
 
                     string grupos = Mapa.Serializar(gruposLista);
 
-                    Paquete paquete = new Paquete("gruposregistrados", grupos);
-
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "gruposregistrados", grupos);
                 }
                 catch
                 {
@@ -210,10 +193,8 @@ namespace Server
         {
             string msgPublic = Mapa.Serializar(messagesPublic);
 
-            Paquete paquete = new Paquete("mensajespublicos", msgPublic);
+            enviarPaqueteServer(hcon.streamW, "mensajespublicos", msgPublic);
 
-            hcon.streamW.WriteLine(paquete);
-            hcon.streamW.Flush();
         }
 
         /// <summary>
@@ -245,18 +226,13 @@ namespace Server
                             userC = ",true";
                         }
                     }
-
-                    Paquete paquete = new Paquete("mensajesgrupo", grupo.esGrupo.ToString() + userC + "," + msgPublic);
-
-                    hcon.streamW.WriteLine(paquete);
-                    hcon.streamW.Flush();
+                    enviarPaqueteServer(hcon.streamW, "mensajesgrupo", grupo.esGrupo.ToString() + userC + "," + msgPublic);
                     return;
                 }
 
             }
-            Paquete paqueteVacio = new Paquete("mensajesgrupo", "");
-            hcon.streamW.WriteLine(paqueteVacio);
-            hcon.streamW.Flush();
+
+            enviarPaqueteServer(hcon.streamW, "mensajesgrupo", "");
         }
 
         /// <summary>
@@ -269,9 +245,7 @@ namespace Server
             {
                 if (c.username != hcon.username)
                 {
-                    Paquete paquete = new Paquete("sedesconecto", hcon.username);
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "sedesconecto", hcon.username);
                 }
             }
         }
@@ -284,10 +258,8 @@ namespace Server
         {
             foreach (Connection c in listConn)
             {
-                Paquete paquete = new Paquete("seconecto", hcon.username);
 
-                c.streamW.WriteLine(paquete);
-                c.streamW.Flush();
+                enviarPaqueteServer(c.streamW, "seconecto", hcon.username);
             }
         }
 
@@ -380,10 +352,10 @@ namespace Server
             {
                 if (usuario.username == useraux.username || usuario.email == useraux.email)
                 {
-                    Paquete paquete = new Paquete("volverLoginRegister", "");
+
                     noEstaRegistrado = false;
-                    hcon.streamW.WriteLine(paquete);
-                    hcon.streamW.Flush();
+
+                    enviarPaqueteServer(hcon.streamW, "volverLoginRegister", "");
                 }
             }
 
@@ -417,9 +389,8 @@ namespace Server
             }
             if (noEsta)
             {
-                Paquete paquete = new Paquete("volverLoginRegister", "");
-                hcon.streamW.WriteLine(paquete);
-                hcon.streamW.Flush();
+
+                enviarPaqueteServer(hcon.streamW, "volverLoginRegister", "");
             }
         }
 
@@ -434,9 +405,7 @@ namespace Server
             {
                 if (usuario.username == msg)
                 {
-                    Paquete paquete = new Paquete("recibirCorreo", usuario.email);
-                    hcon.streamW.WriteLine(paquete);
-                    hcon.streamW.Flush();
+                    enviarPaqueteServer(hcon.streamW, "recibirCorreo", usuario.email);
                 }
             }
         }
@@ -452,9 +421,7 @@ namespace Server
             {
                 if (c.username == msg)
                 {
-                    Paquete paquete = new Paquete("recibirInvitacion", hcon.username);
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "recibirInvitacion", hcon.username);
                 }
             }
         }
@@ -471,9 +438,7 @@ namespace Server
             {
                 if (c.username == content[0])
                 {
-                    Paquete paquete = new Paquete("videollamada", hcon.username + "," + content[1]);
-                    c.streamW.WriteLine(paquete);
-                    c.streamW.Flush();
+                    enviarPaqueteServer(c.streamW, "videollamada", hcon.username + "," + content[1]);
                 }
             }
         }
@@ -488,9 +453,7 @@ namespace Server
             {
                 if (usuario.username == hcon.username)
                 {
-                    Paquete paquete = new Paquete("userData", usuario.username + "," + usuario.password + "," + usuario.email);
-                    hcon.streamW.WriteLine(paquete);
-                    hcon.streamW.Flush();
+                    enviarPaqueteServer(hcon.streamW, "userData", usuario.username + "," + usuario.password + "," + usuario.email);
                 }
             }
         }
@@ -506,9 +469,7 @@ namespace Server
                 if (usuario.username == hcon.username)
                 {
                     usuariosRegister.Remove(usuario);
-                    Paquete paquete = new Paquete("volverLoginRegister", "");
-                    hcon.streamW.WriteLine(paquete);
-                    hcon.streamW.Flush();
+                    enviarPaqueteServer(hcon.streamW, "volverLoginRegister", "");
                     actualizarlistausuarios();
                 }
             }
@@ -533,14 +494,12 @@ namespace Server
 
             usuariosRegister[index] = auxUsuario;
 
-            Paquete paquete = new Paquete("editarusuario", hcon.username+","+datos[1]+","+datos[2]);
+            enviarPaqueteServer(hcon.streamW, "editarusuario", hcon.username + "," + datos[1] + "," + datos[2]);
 
-            hcon.streamW.WriteLine(paquete);
-            hcon.streamW.Flush();
             actualizarlistausuarios();
         }
 
-        void enviarPaquete(StreamWriter sw, string Comando, string Valores)
+        void enviarPaqueteServer(StreamWriter sw, string Comando, string Valores)
         {
             var key = "a1b2c3d4e5f6g7h8";
 
