@@ -55,7 +55,7 @@ namespace Server
                 {
                     foreach (MensajesGrupo grupo in mensajesGrupo)
                     {
-                        if (grupo.nombreGrupo == users[0] + users[1])
+                        if (grupo.nombreGrupo == users[0] + users[1] || grupo.nombreGrupo == usernameMapa)
                         {
                             noexiste = false;
                             msgGroup = grupo;
@@ -86,11 +86,11 @@ namespace Server
                 {
                     foreach (string user in msgGroup.Users)
                     {
-                        if(c.username == user)
+                        if (c.username == user)
                         {
-                            string grupoID = (msgGroup.esGrupo) ? msgGroup.nombreGrupo : msgGroup.Users[0]+":" + msgGroup.Users[1];
+                            string grupoID = (msgGroup.esGrupo) ? msgGroup.nombreGrupo : msgGroup.Users[0] + ":" + msgGroup.Users[1];
 
-                            Paquete paquete = new Paquete("mensajegrupo", message + ","+ grupoID);
+                            Paquete paquete = new Paquete("mensajegrupo", message + "," + grupoID);
 
                             c.streamW.WriteLine(paquete);
                             c.streamW.Flush();
@@ -127,6 +127,41 @@ namespace Server
                     string usuarios = Mapa.Serializar(usuariosRegistrados);
 
                     Paquete paquete = new Paquete("usuariosregistrados", usuarios);
+
+                    c.streamW.WriteLine(paquete);
+                    c.streamW.Flush();
+                    
+                }
+                catch
+                {
+                    Console.WriteLine("Hubo un error jeje");
+                }
+            }
+            actualizarlistagrupos();
+        }
+
+        public void actualizarlistagrupos()
+        {
+            foreach (Connection c in listConn)
+            {
+                try
+                {
+                    List<string> gruposLista = new List<string>();
+
+                    foreach (var grupo in mensajesGrupo)
+                    {
+                        if (grupo.esGrupo == true)
+                        {
+                            if(grupo.Users.Any(str => str.Contains(c.username)))
+                            {
+                                gruposLista.Add(grupo.nombreGrupo);
+                            }
+                        }
+                    }
+
+                    string grupos = Mapa.Serializar(gruposLista);
+
+                    Paquete paquete = new Paquete("gruposregistrados", grupos);
 
                     c.streamW.WriteLine(paquete);
                     c.streamW.Flush();
@@ -167,13 +202,13 @@ namespace Server
 
                     foreach (Connection c in listConn)
                     {
-                        if(c.username==users[0])
+                        if (c.username == users[0])
                         {
-                            userC = "true";
+                            userC = ",true";
                         }
                     }
 
-                    Paquete paquete = new Paquete("mensajesgrupo", grupo.esGrupo.ToString()+","+ userC + "," + msgPublic);
+                    Paquete paquete = new Paquete("mensajesgrupo", grupo.esGrupo.ToString() + userC + "," + msgPublic);
 
                     hcon.streamW.WriteLine(paquete);
                     hcon.streamW.Flush();
@@ -192,7 +227,7 @@ namespace Server
             {
                 Paquete paquete = new Paquete("sedesconecto", hcon.username);
 
-                if(c.username != hcon.username)
+                if (c.username != hcon.username)
                 {
                     c.streamW.WriteLine(paquete);
                     c.streamW.Flush();
@@ -216,12 +251,12 @@ namespace Server
             bool existe = true;
             foreach (var grupo in mensajesGrupo)
             {
-                if(grupo.nombreGrupo==msg)
+                if (grupo.nombreGrupo == msg)
                 {
                     existe = false;
                 }
             }
-            if(existe)
+            if (existe)
             {
                 MensajesGrupo MGaux = new MensajesGrupo();
                 MGaux.Users = new List<string>();
@@ -231,8 +266,45 @@ namespace Server
                 MGaux.Users.Add(hcon.username);
                 MGaux.esGrupo = true;
                 mensajesGrupo.Add(MGaux);
+                actualizarlistausuarios();
             }
         }
+
+        public void salirGrupo(Connection hcon, string msg)
+        {
+            foreach (var grupo in mensajesGrupo)
+            {
+                if (grupo.nombreGrupo == msg)
+                {
+                    grupo.Users.Remove(hcon.username);
+                }
+            }
+            actualizarlistausuarios();
+        }
+
+        public void invitarGrupo(Connection hcon, string msg)
+        {
+            List<string> userGroup = Mapa.Deserializar(msg);
+
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == userGroup[0])
+                {
+                    foreach (var grupo in mensajesGrupo)
+                    {
+                        if(grupo.nombreGrupo == userGroup[1])
+                        {
+                            if (!grupo.Users.Any(str => str.Contains(userGroup[0])))
+                            {
+                                grupo.Users.Add(userGroup[0]);
+                            }                            
+                        }   
+                    }
+                }
+            }
+            actualizarlistausuarios();
+        }
+
         public void registrarUsuario(Connection hcon, string msg)
         {
             List<string> userdata = Mapa.Deserializar(msg);
@@ -272,7 +344,7 @@ namespace Server
             {
                 if (usuario.username == identificador[0])
                 {
-                    if(usuario.password == identificador[1])
+                    if (usuario.password == identificador[1])
                     {
                         noEsta = false;
                     }
@@ -283,6 +355,46 @@ namespace Server
                 Paquete paquete = new Paquete("volverLoginRegister", "");
                 hcon.streamW.WriteLine(paquete);
                 hcon.streamW.Flush();
+            }
+        }
+
+        public void recibircorreousuario(Connection hcon, string msg)
+        {
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == msg)
+                {
+                    Paquete paquete = new Paquete("recibirCorreo", usuario.email);
+                    hcon.streamW.WriteLine(paquete);
+                    hcon.streamW.Flush();
+                }
+            }
+        }
+
+        public void invitarVideollamada(Connection hcon, string msg)
+        {
+            foreach(Connection c in listConn)
+            {
+                if(c.username == msg)
+                {
+                    Paquete paquete = new Paquete("recibirInvitacion", hcon.username);
+                    c.streamW.WriteLine(paquete);
+                    c.streamW.Flush();
+                }
+            }
+        }
+        public void responderVideollamada(Connection hcon, string msg)
+        {
+            List<string> content = Mapa.Deserializar(msg);
+
+            foreach (Connection c in listConn)
+            {
+                if (c.username == content[0])
+                {
+                    Paquete paquete = new Paquete("videollamada", hcon.username+","+content[1]);
+                    c.streamW.WriteLine(paquete);
+                    c.streamW.Flush();
+                }
             }
         }
     }

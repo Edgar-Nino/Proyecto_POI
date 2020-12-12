@@ -19,16 +19,38 @@ namespace Proyecto_POI
 
         public delegate void RecibirMensaje(string toAdd);
 
+        /// <summary>
+        /// Es el NetworkStream de nuestra clase mainForm
+        /// </summary>
         static private NetworkStream stream;
+        /// <summary>
+        /// Es el StreamWriter, es el que utilizaremos para mandar mensajes al servidor.
+        /// </summary>
         static private StreamWriter streamw;
+        /// <summary>
+        /// Es el StreamReader, es el que utilizaremos para escuchar mensajes del servidor.
+        /// </summary>
         static private StreamReader streamr;
+        /// <summary>
+        /// Es el tcp client de nuestra conexión.
+        /// </summary>
         static private TcpClient client = new TcpClient();
+        /// <summary>
+        /// Es el username con el que identificamos al usuario actual
+        /// </summary>
         static private string username = "unknown";
-
+        /// <summary>
+        /// Este es el paquete que le enviamos al usuario para que pueda ingresar o registrarse
+        /// </summary>
         static private Paquete paqueteInicial;
 
+        /// <summary>
+        /// EjecutarComando es el metodo que utilizamos para recibir comandos del servidor, ponemos el comando en el switch y a partir de ahi se decide que acción hacer.
+        /// </summary>
+        /// <param name="msg">Es el mensaje del servidor al cliente, esta constituido por dos partes, un Comando y Contenido</param>
         private void EjecutarComando(string msg)
         {
+
             Paquete paquete = new Paquete(msg);
 
             switch (paquete.Comando)
@@ -36,6 +58,11 @@ namespace Proyecto_POI
                 case "usuariosregistrados":
                     {
                         lb_Grupos.Items.Clear();
+                        lb_Grupos.SelectedIndex = -1;
+
+                        btn_invite.Visible = false;
+                        btn_Salir.Visible = false;
+
                         List<string> listaUsuarios = Mapa.Deserializar(paquete.Contenido);
                         lb_Grupos.Items.Add("PUBLICO");
                         foreach (string usuario in listaUsuarios)
@@ -45,8 +72,20 @@ namespace Proyecto_POI
                         }
                         break;
                     }
+                case "gruposregistrados":
+                    {
+                        List<string> listaGrupos = Mapa.Deserializar(paquete.Contenido);
+                        foreach (string grupos in listaGrupos)
+                        {
+                                lb_Grupos.Items.Add(grupos);
+                        }
+                        break;
+                    }
                 case "mensajespublicos":
                     {
+                        btn_invite.Visible = false;
+                        btn_Salir.Visible = false;
+
                         listChat.Items.Clear();
 
                         videoBtn.Enabled = false;
@@ -62,6 +101,7 @@ namespace Proyecto_POI
                     }
                 case "mensajepublico":
                     {
+                        Console.Beep();
                         if (lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1)
                         {
                             listChat.Items.Add(paquete.Contenido);
@@ -75,24 +115,37 @@ namespace Proyecto_POI
 
                         listChat.Items.Clear();
 
+                        btn_invite.Visible = false;
+                        btn_Salir.Visible = false;
+
                         if (listaMensajes.Count != 0)
                         {
                             L_IsConnected.Text = "";
 
                             string esGrupo = listaMensajes.First();
 
-                            videoBtn.Enabled = (esGrupo == "true") ? false : true;
-                            correoBtn.Enabled = (esGrupo == "true") ? false : true;
+                            videoBtn.Enabled = (esGrupo == "True") ? false : true;
+                            correoBtn.Enabled = (esGrupo == "True") ? false : true;
 
                             listaMensajes.RemoveAt(0);
 
-                            string userC = listaMensajes.First();
-
-                            listaMensajes.RemoveAt(0);
-
-                            if(esGrupo!="true")
+                            string userC = "";
+                            
+                            if(esGrupo!="True")
                             {
+                                userC = listaMensajes.First();
+
+                                listaMensajes.RemoveAt(0);
+
                                 L_IsConnected.Text = (userC == "true") ? "Conectado" : "Desconectado";
+
+                                videoBtn.Enabled = (userC == "true") ? true : false;
+                            }
+                            else
+                            {
+                                btn_invite.Visible = true;
+                                btn_Salir.Visible = true;
+                                L_IsConnected.Text = "";
                             }
                            
 
@@ -112,9 +165,14 @@ namespace Proyecto_POI
 
                         List<string> grupoNombre = Contenido[1].Split(':').ToList();
 
-                        if (lb_Grupos.Text == grupoNombre[0] || lb_Grupos.Text == grupoNombre[1])
+                        Console.Beep();
+
+                        if(!(lb_Grupos.Text==""))
                         {
-                            listChat.Items.Add(Contenido[0]);
+                            if (lb_Grupos.Text == grupoNombre[0] || lb_Grupos.Text == grupoNombre[1])
+                            {
+                                listChat.Items.Add(Contenido[0]);
+                            }
                         }
                         break;
                     }
@@ -125,6 +183,7 @@ namespace Proyecto_POI
                             if(lb_Grupos.Text==paquete.Contenido)
                             {
                                 L_IsConnected.Text = "Desconectado";
+                                videoBtn.Enabled = false;
                             }
                         }
 
@@ -137,6 +196,7 @@ namespace Proyecto_POI
                             if (lb_Grupos.Text == paquete.Contenido)
                             {
                                 L_IsConnected.Text = "Conectado";
+                                videoBtn.Enabled = true;
                             }
                         }
 
@@ -144,15 +204,58 @@ namespace Proyecto_POI
                     }
                 case "volverLoginRegister":
                     {
-                        formLogin newForm = new formLogin();
-                        this.Hide();
-                        newForm.ShowDialog();
-                        this.Close();
+                        Environment.Exit(0);
+                        break;
+                    }
+                case "recibirCorreo":
+                    {
+                        correoForm newForm = new correoForm(paquete.Contenido);
+                        newForm.Show();
+                        break;
+                    }
+                case "recibirInvitacion":
+                    {
+                        string usuario = paquete.Contenido;
+                        DialogResult dialogResult = MessageBox.Show("¿Quieres aceptar la invitación?", usuario + " te ha invitado a una videollamada", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            enviarPaquete("respondervideollamada", usuario + ","+"si");
+
+                            videollamadaForm newForm = new videollamadaForm(1);
+                            newForm.Show();
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            enviarPaquete("respondervideollamada", usuario + "," + "no");
+                        }
+                        break;
+                    }
+                case "videollamada":
+                    {
+                        List<string> content = Mapa.Deserializar(paquete.Contenido);
+                        if(content[1]=="si")
+                        {
+                            videollamadaForm newForm = new videollamadaForm(0);
+                            newForm.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show(content[0]+" no acepto tu invitación");
+                        }
                         break;
                     }
             }
         }
-
+        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+            
+        }
+        /// <summary>
+        /// Es la sobrecarga al constructor de nuestro mainForm, con esto puede recibir el login o register.
+        /// </summary>
+        /// <param name="paquete">Es el paquete con el que va a hacer la accion de login o register</param>
         public mainForm(string paquete)
         {
             InitializeComponent();
@@ -161,12 +264,18 @@ namespace Proyecto_POI
             paqueteInicial = new Paquete(paquete);
         }
 
+        /// <summary>
+        /// Es el contructor de nuestro mainForm.
+        /// </summary>
         public mainForm()
         {
             InitializeComponent();
             
         }
 
+        /// <summary>
+        /// Aqui es donde hacemos Invoke para que pueda funcionar nuestro Ejecutar comando.
+        /// </summary>
         void Listen()
         {
             while (client.Connected)
@@ -184,7 +293,9 @@ namespace Proyecto_POI
                 }
             }
         }
-
+        /// <summary>
+        /// Aquí conectamos el cliente con el servidor, tambien se hace el login o el register, asimismo tambien hacemos acciones basicas como conseguir los usuarios, mensajes.
+        /// </summary>
         void Conectar()
         {
             try
@@ -201,6 +312,10 @@ namespace Proyecto_POI
                     streamw.WriteLine(username);
                     streamw.Flush();
 
+                    //t.IsBackground = true;
+
+                    t.Start();
+
                     List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
 
                     enviarPaquete(paqueteInicial.Comando,paqueteInicial.Contenido);
@@ -209,7 +324,7 @@ namespace Proyecto_POI
 
                     enviarPaquete("conseguirmensajespublicos", "");
 
-                    t.Start();
+                    
                 }
                 else
                 {
@@ -217,14 +332,19 @@ namespace Proyecto_POI
                     Environment.Exit(0);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                MessageBox.Show(e.ToString());
                 MessageBox.Show("Servidor no disponible");
                 Environment.Exit(0);
             }
         }
 
+        /// <summary>
+        /// Aquí inicializamos nuestro MainForm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mainForm_Load(object sender, EventArgs e)
         {
             cuentaPanel.Hide();
@@ -234,6 +354,9 @@ namespace Proyecto_POI
             editAceptarBtn.Enabled = false;
             editCancelarBtn.Enabled = false;
             L_IsConnected.Text = "";
+
+            btn_invite.Visible = false;
+            btn_Salir.Visible = false;
 
             List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
 
@@ -246,6 +369,11 @@ namespace Proyecto_POI
             Conectar();
         }
 
+        /// <summary>
+        /// Esto lo usamos para saber si mandar un mensaje a un grupo o a una conversacion publica
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sendBtn_Click(object sender, EventArgs e)
         {
             if (lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1)
@@ -262,6 +390,11 @@ namespace Proyecto_POI
 
         }
 
+        /// <summary>
+        /// Aquí recibimos el valor de la lista de grupos, lo utilizamos para cambiar los mensajes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lb_Grupos_SelectedValueChanged(object sender, EventArgs e)
         {
             if (lb_Grupos.SelectedIndex != -1)
@@ -283,20 +416,43 @@ namespace Proyecto_POI
             }
         }
 
+        /// <summary>
+        /// Es el evento que utilizamos para el correo, aqui podremos enviar un correo, solamente sirve para conversaciones privadas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void correoBtn_Click(object sender, EventArgs e)
         {
-            correoForm newForm = new correoForm();
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+            
+            if ((Application.OpenForms["correoForm"] as correoForm) != null)
+            {
+                //Form is already open
+            }
+            else
+            {
+                Paquete paquete = new Paquete("recibircorreousuario", lb_Grupos.Text);
+
+                streamw.WriteLine(paquete);
+                streamw.Flush();
+            }
         }
 
+        /// <summary>
+        /// Con este botón mandamos una invitación a participar a una videollamada, solamente sirve para conversaciones privadas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void videoBtn_Click(object sender, EventArgs e)
         {
-            videollamadaForm newForm = new videollamadaForm();
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+
+            enviarPaquete("videollamadainvitar", lb_Grupos.Text);
+
+            MessageBox.Show("Se invito al usuario: " + lb_Grupos.Text);
+
+            //videollamadaForm newForm = new videollamadaForm();
+            //this.Hide();
+            //newForm.Show();
+            //this.Close();
         }
 
         private void archivoBtn_Click(object sender, EventArgs e)
@@ -305,6 +461,11 @@ namespace Proyecto_POI
             openFileDialog1.ShowDialog();
         }
 
+        /// <summary>
+        /// Es el botón que utilizamos para salir de la aplicación, Enviroment.Exit(0), sirve tambien para cerrar los threads que quedan.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void salirBtn_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
@@ -342,17 +503,23 @@ namespace Proyecto_POI
             editBtn.Enabled = true;
         }
 
+        /// <summary>
+        /// Este botón lo utilizamos para  crear un grupo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chatsBtn_Click(object sender, EventArgs e)
         {
             cuentaPanel.Hide();
-        }
-
-        private void correoBtn_Click_1(object sender, EventArgs e)
-        {
-            correoForm newForm = new correoForm();
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+            string value = Prompt.ShowDialog("Ingresa el nombre del grupo", "Crear grupo");
+            if(value.Length==0)
+            {
+                MessageBox.Show("No ingresaste nada");
+            }
+            else
+            {
+                enviarPaquete("creargrupo", value);
+            }
         }
 
         private void archivoBtn_Click_1(object sender, EventArgs e)
@@ -361,12 +528,40 @@ namespace Proyecto_POI
             openFileDialog1.ShowDialog();
         }
 
-        private void videoBtn_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Este boton lo utilizamos para salir de un grupo, logicamente solo sirve cuando estamos en un grupo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Salir_Click(object sender, EventArgs e)
         {
-            videollamadaForm newForm = new videollamadaForm();
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("¿Seguro que quiere salir del grupo?", "Salir del grupo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                enviarPaquete("salirgrupo", lb_Grupos.Text);
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
+        /// <summary>
+        /// Este boton lo utilizamos para invitar a una persona al grupo actual.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_invite_Click(object sender, EventArgs e)
+        {
+            string value = Prompt.ShowDialog("Ingresa el nombre de la persona que quieres invitar", "Invitar persona");
+            if (value.Length == 0)
+            {
+                MessageBox.Show("No ingresaste nada");
+            }
+            else
+            {
+                enviarPaquete("invitargrupo", value+","+lb_Grupos.Text);
+            }
         }
     }
 }

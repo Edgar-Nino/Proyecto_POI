@@ -11,6 +11,9 @@ using Utilities;
 
 namespace Server
 {
+    /// <summary>
+    /// Es la clase del servidor aqui se reciben paquetes que contienen comandos a realizar
+    /// </summary>
     partial class Servidor_Chat
     {
         //Del profe ----------------------------------------------------------------------------------------------
@@ -55,21 +58,50 @@ namespace Server
 
         //}
 
+        /// <summary>
+        /// Es el listado de los mensajes publicos, son los que estan en la sección PUBLICA
+        /// </summary>
         public List<String> messagesPublic = new List<String>();
+
 
         //public List<String> usuariosRegistrados = new List<String>();
 
+        /// <summary>
+        /// Es el listado de todos los usuarios registrados.
+        /// </summary>
         public List<Usuario> usuariosRegister = new List<Usuario>();
 
+        /// <summary>
+        /// Es el listado de todos los grupos, contiene sus mensajes, usuarios y nombre
+        /// </summary>
         public List<MensajesGrupo> mensajesGrupo = new List<MensajesGrupo>();
 
+        /// <summary>
+        /// Es el listener que se va a utilizar
+        /// </summary>
         public TcpListener server;
+
+        /// <summary>
+        /// Es el cliente actual
+        /// </summary>
         public TcpClient client = new TcpClient();
+        /// <summary>
+        /// Es el endpoint que se utilizara para las conexiones
+        /// </summary>
         public IPEndPoint ipenpoint = new IPEndPoint(IPAddress.Any, 8080);
+        /// <summary>
+        /// Es el listado de todos los usuarios conectados.
+        /// </summary>
         public List<Connection> listConn = new List<Connection>();
 
+        /// <summary>
+        /// Es la conexión actual.
+        /// </summary>
         Connection con;
 
+        /// <summary>
+        /// Es la estructura para los usuarios, esto incluye username, contraseña y email.
+        /// </summary>
         public struct Usuario
         {
             public string username;
@@ -77,6 +109,9 @@ namespace Server
             public string email;
         }
 
+        /// <summary>
+        /// Es la estructura para la conexion, esto lo utilizamos para escuchar a los usuarios conectados
+        /// </summary>
         public struct Connection
         {
             public TcpClient client;
@@ -86,6 +121,9 @@ namespace Server
             public String username;
         }
 
+        /// <summary>
+        /// Es la estructura para mensajesGrupos, se incluyen una lista de todos los usuarios que pertenecen al grupo, la lista de los mensajes, un booleano que dice si es un grupo o es un chat privado y el nombre del grupo.
+        /// </summary>
         public struct MensajesGrupo
         {
             public List<string> Users;
@@ -94,11 +132,17 @@ namespace Server
             public String nombreGrupo;
         }
 
+        /// <summary>
+        /// Es el constructor de nuestra clase, aquí iniciamos todo
+        /// </summary>
         public Servidor_Chat()
         {
             Inicio();
         }
 
+        /// <summary>
+        /// Es el metodo que prepara la llegada de mensajes de clientes.
+        /// </summary>
         public void Inicio()
         {
             Console.WriteLine("Servidor Iniciado");
@@ -128,6 +172,9 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Aquí escuchamos los comandos de los clientes, todo esto a traves de la clase paquete.
+        /// </summary>
         void Escuchar_Conexion()
         {
             Connection hcon = con;
@@ -169,6 +216,21 @@ namespace Server
                                 conseguirMensajesGrupo(hcon, paquete.Contenido);
                                 break;
                             }
+                        case "creargrupo":
+                            {
+                                crearGrupo(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "salirgrupo":
+                            {
+                                salirGrupo(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "invitargrupo":
+                            {
+                                invitarGrupo(hcon, paquete.Contenido);
+                                break;
+                            }
                         case "registrarse":
                             {
                                 registrarUsuario(hcon, paquete.Contenido);
@@ -177,6 +239,21 @@ namespace Server
                         case "ingresar":
                             {
                                 ingresarUsuario(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "recibircorreousuario":
+                            {
+                                recibircorreousuario(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "videollamadainvitar":
+                            {
+                                invitarVideollamada(hcon, paquete.Contenido);
+                                break;
+                            }
+                        case "respondervideollamada":
+                            {
+                                responderVideollamada(hcon, paquete.Contenido);
                                 break;
                             }
                     }
@@ -189,17 +266,6 @@ namespace Server
                     break;
                 }
             } while (true);
-        }
-
-        public void DisconnectClient(string username)
-        {
-            foreach (Connection client in listConn)
-            {
-                if (client.username == username)
-                {
-                    listConn.Remove(client);
-                }
-            }
         }
     }
 }

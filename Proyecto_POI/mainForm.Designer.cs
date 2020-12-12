@@ -37,6 +37,7 @@
             this.lb_Grupos = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chatViewPanel = new System.Windows.Forms.Panel();
+            this.L_IsConnected = new System.Windows.Forms.Label();
             this.cuentaPanel = new System.Windows.Forms.Panel();
             this.textBoxMail = new System.Windows.Forms.TextBox();
             this.textBoxPass = new System.Windows.Forms.TextBox();
@@ -56,7 +57,8 @@
             this.editMensaje = new System.Windows.Forms.TextBox();
             this.l_Username = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.L_IsConnected = new System.Windows.Forms.Label();
+            this.btn_invite = new System.Windows.Forms.Button();
+            this.btn_Salir = new System.Windows.Forms.Button();
             this.DragControl.SuspendLayout();
             this.panel2.SuspendLayout();
             this.chatViewPanel.SuspendLayout();
@@ -121,7 +123,7 @@
             this.chatsBtn.Name = "chatsBtn";
             this.chatsBtn.Size = new System.Drawing.Size(120, 61);
             this.chatsBtn.TabIndex = 4;
-            this.chatsBtn.Text = "Chats";
+            this.chatsBtn.Text = "Crear Grupo";
             this.chatsBtn.UseVisualStyleBackColor = false;
             this.chatsBtn.Click += new System.EventHandler(this.chatsBtn_Click);
             // 
@@ -173,6 +175,8 @@
             // 
             // chatViewPanel
             // 
+            this.chatViewPanel.Controls.Add(this.btn_Salir);
+            this.chatViewPanel.Controls.Add(this.btn_invite);
             this.chatViewPanel.Controls.Add(this.L_IsConnected);
             this.chatViewPanel.Controls.Add(this.cuentaPanel);
             this.chatViewPanel.Controls.Add(this.correoBtn);
@@ -188,6 +192,15 @@
             this.chatViewPanel.Size = new System.Drawing.Size(410, 476);
             this.chatViewPanel.TabIndex = 2;
             // 
+            // L_IsConnected
+            // 
+            this.L_IsConnected.AutoSize = true;
+            this.L_IsConnected.Location = new System.Drawing.Point(283, 16);
+            this.L_IsConnected.Name = "L_IsConnected";
+            this.L_IsConnected.Size = new System.Drawing.Size(97, 19);
+            this.L_IsConnected.TabIndex = 16;
+            this.L_IsConnected.Text = "Conectado";
+            // 
             // cuentaPanel
             // 
             this.cuentaPanel.Controls.Add(this.textBoxMail);
@@ -200,7 +213,7 @@
             this.cuentaPanel.Controls.Add(this.editCancelarBtn);
             this.cuentaPanel.Controls.Add(this.editBtn);
             this.cuentaPanel.Controls.Add(this.label4);
-            this.cuentaPanel.Location = new System.Drawing.Point(33, 89);
+            this.cuentaPanel.Location = new System.Drawing.Point(10, 113);
             this.cuentaPanel.Name = "cuentaPanel";
             this.cuentaPanel.Size = new System.Drawing.Size(358, 285);
             this.cuentaPanel.TabIndex = 15;
@@ -339,7 +352,7 @@
             this.correoBtn.TabIndex = 13;
             this.correoBtn.Text = "Correo";
             this.correoBtn.UseVisualStyleBackColor = false;
-            this.correoBtn.Click += new System.EventHandler(this.correoBtn_Click_1);
+            this.correoBtn.Click += new System.EventHandler(this.correoBtn_Click);
             // 
             // videoBtn
             // 
@@ -355,7 +368,7 @@
             this.videoBtn.TabIndex = 14;
             this.videoBtn.Text = "Videollamada";
             this.videoBtn.UseVisualStyleBackColor = false;
-            this.videoBtn.Click += new System.EventHandler(this.videoBtn_Click_1);
+            this.videoBtn.Click += new System.EventHandler(this.videoBtn_Click);
             // 
             // listChat
             // 
@@ -416,21 +429,44 @@
             // 
             this.l_Username.AutoSize = true;
             this.l_Username.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_Username.Location = new System.Drawing.Point(30, 50);
+            this.l_Username.Location = new System.Drawing.Point(14, 16);
             this.l_Username.Name = "l_Username";
             this.l_Username.Size = new System.Drawing.Size(137, 18);
             this.l_Username.TabIndex = 10;
             this.l_Username.Text = "NombreContacto";
             this.l_Username.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // L_IsConnected
+            // btn_invite
             // 
-            this.L_IsConnected.AutoSize = true;
-            this.L_IsConnected.Location = new System.Drawing.Point(150, 15);
-            this.L_IsConnected.Name = "L_IsConnected";
-            this.L_IsConnected.Size = new System.Drawing.Size(97, 19);
-            this.L_IsConnected.TabIndex = 16;
-            this.L_IsConnected.Text = "Conectado";
+            this.btn_invite.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn_invite.FlatAppearance.BorderSize = 0;
+            this.btn_invite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_invite.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_invite.ForeColor = System.Drawing.Color.MintCream;
+            this.btn_invite.Location = new System.Drawing.Point(93, 48);
+            this.btn_invite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_invite.Name = "btn_invite";
+            this.btn_invite.Size = new System.Drawing.Size(74, 26);
+            this.btn_invite.TabIndex = 17;
+            this.btn_invite.Text = "Invitar";
+            this.btn_invite.UseVisualStyleBackColor = false;
+            this.btn_invite.Click += new System.EventHandler(this.btn_invite_Click);
+            // 
+            // btn_Salir
+            // 
+            this.btn_Salir.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn_Salir.FlatAppearance.BorderSize = 0;
+            this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Salir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Salir.ForeColor = System.Drawing.Color.MintCream;
+            this.btn_Salir.Location = new System.Drawing.Point(13, 48);
+            this.btn_Salir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Salir.Name = "btn_Salir";
+            this.btn_Salir.Size = new System.Drawing.Size(74, 26);
+            this.btn_Salir.TabIndex = 18;
+            this.btn_Salir.Text = "Salir";
+            this.btn_Salir.UseVisualStyleBackColor = false;
+            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
             // 
             // mainForm
             // 
@@ -449,6 +485,7 @@
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "mainForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.DragControl.ResumeLayout(false);
             this.DragControl.PerformLayout();
@@ -493,5 +530,7 @@
         private System.Windows.Forms.Button editCancelarBtn;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label L_IsConnected;
+        private System.Windows.Forms.Button btn_Salir;
+        private System.Windows.Forms.Button btn_invite;
     }
 }
