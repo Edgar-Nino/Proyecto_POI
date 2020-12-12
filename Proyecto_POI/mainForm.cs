@@ -289,6 +289,32 @@ namespace Proyecto_POI
                         }
                         break;
                     }
+                case "userData":
+                    {
+                        List<string> content = Mapa.Deserializar(paquete.Contenido);
+
+                        username = content[0];
+                        password = content[1];
+                        email = content[2];
+                        textBoxUser.Text = username;
+                        textBoxPass.Text = password;
+                        textBoxMail.Text = email;
+
+                        break;
+                    }
+                case "editarusuario":
+                    {
+                        List<string> content = Mapa.Deserializar(paquete.Contenido);
+
+                        username = content[0];
+                        password = content[1];
+                        email = content[2];
+                        textBoxUser.Text = username;
+                        textBoxPass.Text = password;
+                        textBoxMail.Text = email;
+
+                        break;
+                    }
             }
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -368,7 +394,7 @@ namespace Proyecto_POI
 
                     enviarPaquete("conseguirmensajespublicos", "");
 
-
+                    enviarPaquete("conseguirdatausuario", "");
                 }
                 else
                 {
@@ -405,9 +431,7 @@ namespace Proyecto_POI
             List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
 
             username = userContent[0];
-
             password = userContent[1];
-            email = userContent[2];
 
             l_Username.Text = username;
 
@@ -531,6 +555,11 @@ namespace Proyecto_POI
             //Application.Exit();
         }
 
+        /// <summary>
+        /// Muestra la cuenta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cuentaBtn_Click(object sender, EventArgs e)
         {
 
@@ -548,7 +577,6 @@ namespace Proyecto_POI
         /// <param name="e"></param>
         private void editBtn_Click(object sender, EventArgs e)
         {
-            textBoxUser.Enabled = true;
             textBoxPass.Enabled = true;
             textBoxMail.Enabled = true;
             editBtn.Enabled = false;
@@ -565,17 +593,13 @@ namespace Proyecto_POI
         /// <param name="e"></param>
         private void editAceptarBtn_Click(object sender, EventArgs e)
         {
-            textBoxUser.Enabled = false;
             textBoxPass.Enabled = false;
             textBoxMail.Enabled = false;
             editBtn.Enabled = true;
             editAceptarBtn.Hide();
             editCancelarBtn.Hide();
 
-            textBoxUser.Text = username;
-            textBoxPass.Text = password;
-            textBoxMail.Text = email;
-
+            enviarPaquete("editarusuario", textBoxUser.Text + "," + textBoxPass.Text + ","+ textBoxMail.Text);
             //username = userContent[0];
             // password = userContent[1];
             //email = userContent[2];
@@ -588,7 +612,6 @@ namespace Proyecto_POI
         /// <param name="e"></param>
         private void editCancelarBtn_Click(object sender, EventArgs e)
         {
-            textBoxUser.Enabled = false;
             textBoxPass.Enabled = false;
             textBoxMail.Enabled = false;
             editBtn.Enabled = true;
@@ -668,6 +691,25 @@ namespace Proyecto_POI
             {
                 enviarPaquete("invitargrupo", value + "," + lb_Grupos.Text);
             }
+        }
+
+        /// <summary>
+        /// Botón para eliminar el usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("¿Seguro que quiere salir del grupo?", "Salir del grupo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                enviarPaquete("eliminarusuario", "");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+            
         }
     }
 }

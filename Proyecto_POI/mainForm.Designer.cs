@@ -37,6 +37,8 @@
             this.lb_Grupos = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chatViewPanel = new System.Windows.Forms.Panel();
+            this.btn_Salir = new System.Windows.Forms.Button();
+            this.btn_invite = new System.Windows.Forms.Button();
             this.L_IsConnected = new System.Windows.Forms.Label();
             this.cuentaPanel = new System.Windows.Forms.Panel();
             this.textBoxMail = new System.Windows.Forms.TextBox();
@@ -52,13 +54,12 @@
             this.correoBtn = new System.Windows.Forms.Button();
             this.videoBtn = new System.Windows.Forms.Button();
             this.listChat = new System.Windows.Forms.ListBox();
+            this.archivoBtn = new System.Windows.Forms.Button();
             this.sendBtn = new System.Windows.Forms.Button();
             this.editMensaje = new System.Windows.Forms.TextBox();
             this.l_Username = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.btn_invite = new System.Windows.Forms.Button();
-            this.btn_Salir = new System.Windows.Forms.Button();
-            this.archivoBtn = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
             this.DragControl.SuspendLayout();
             this.panel2.SuspendLayout();
             this.chatViewPanel.SuspendLayout();
@@ -192,6 +193,38 @@
             this.chatViewPanel.Size = new System.Drawing.Size(410, 476);
             this.chatViewPanel.TabIndex = 2;
             // 
+            // btn_Salir
+            // 
+            this.btn_Salir.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn_Salir.FlatAppearance.BorderSize = 0;
+            this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Salir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Salir.ForeColor = System.Drawing.Color.MintCream;
+            this.btn_Salir.Location = new System.Drawing.Point(13, 48);
+            this.btn_Salir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Salir.Name = "btn_Salir";
+            this.btn_Salir.Size = new System.Drawing.Size(74, 26);
+            this.btn_Salir.TabIndex = 18;
+            this.btn_Salir.Text = "Salir";
+            this.btn_Salir.UseVisualStyleBackColor = false;
+            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
+            // 
+            // btn_invite
+            // 
+            this.btn_invite.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn_invite.FlatAppearance.BorderSize = 0;
+            this.btn_invite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_invite.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_invite.ForeColor = System.Drawing.Color.MintCream;
+            this.btn_invite.Location = new System.Drawing.Point(93, 48);
+            this.btn_invite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_invite.Name = "btn_invite";
+            this.btn_invite.Size = new System.Drawing.Size(74, 26);
+            this.btn_invite.TabIndex = 17;
+            this.btn_invite.Text = "Invitar";
+            this.btn_invite.UseVisualStyleBackColor = false;
+            this.btn_invite.Click += new System.EventHandler(this.btn_invite_Click);
+            // 
             // L_IsConnected
             // 
             this.L_IsConnected.AutoSize = true;
@@ -203,6 +236,7 @@
             // 
             // cuentaPanel
             // 
+            this.cuentaPanel.Controls.Add(this.btn_delete);
             this.cuentaPanel.Controls.Add(this.textBoxMail);
             this.cuentaPanel.Controls.Add(this.textBoxPass);
             this.cuentaPanel.Controls.Add(this.label5);
@@ -295,8 +329,8 @@
             this.editAceptarBtn.TabIndex = 14;
             this.editAceptarBtn.Text = "Aceptar";
             this.editAceptarBtn.UseVisualStyleBackColor = false;
-            this.editAceptarBtn.Click += new System.EventHandler(this.editAceptarBtn_Click);
             this.editAceptarBtn.Visible = false;
+            this.editAceptarBtn.Click += new System.EventHandler(this.editAceptarBtn_Click);
             // 
             // editCancelarBtn
             // 
@@ -312,8 +346,8 @@
             this.editCancelarBtn.TabIndex = 14;
             this.editCancelarBtn.Text = "Cancelar";
             this.editCancelarBtn.UseVisualStyleBackColor = false;
-            this.editCancelarBtn.Click += new System.EventHandler(this.editCancelarBtn_Click);
             this.editCancelarBtn.Visible = false;
+            this.editCancelarBtn.Click += new System.EventHandler(this.editCancelarBtn_Click);
             // 
             // editBtn
             // 
@@ -384,6 +418,23 @@
             this.listChat.Size = new System.Drawing.Size(346, 228);
             this.listChat.TabIndex = 11;
             // 
+            // archivoBtn
+            // 
+            this.archivoBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.archivoBtn.FlatAppearance.BorderSize = 0;
+            this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.archivoBtn.Location = new System.Drawing.Point(173, 417);
+            this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.archivoBtn.Name = "archivoBtn";
+            this.archivoBtn.Size = new System.Drawing.Size(118, 28);
+            this.archivoBtn.TabIndex = 8;
+            this.archivoBtn.Text = "Archivo";
+            this.archivoBtn.UseVisualStyleBackColor = false;
+            this.archivoBtn.Visible = false;
+            this.archivoBtn.Click += new System.EventHandler(this.archivoBtn_Click_1);
+            // 
             // sendBtn
             // 
             this.sendBtn.BackColor = System.Drawing.Color.DarkSalmon;
@@ -423,54 +474,20 @@
             this.l_Username.Text = "NombreContacto";
             this.l_Username.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btn_invite
+            // btn_delete
             // 
-            this.btn_invite.BackColor = System.Drawing.Color.CadetBlue;
-            this.btn_invite.FlatAppearance.BorderSize = 0;
-            this.btn_invite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_invite.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_invite.ForeColor = System.Drawing.Color.MintCream;
-            this.btn_invite.Location = new System.Drawing.Point(93, 48);
-            this.btn_invite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_invite.Name = "btn_invite";
-            this.btn_invite.Size = new System.Drawing.Size(74, 26);
-            this.btn_invite.TabIndex = 17;
-            this.btn_invite.Text = "Invitar";
-            this.btn_invite.UseVisualStyleBackColor = false;
-            this.btn_invite.Click += new System.EventHandler(this.btn_invite_Click);
-            // 
-            // btn_Salir
-            // 
-            this.btn_Salir.BackColor = System.Drawing.Color.CadetBlue;
-            this.btn_Salir.FlatAppearance.BorderSize = 0;
-            this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Salir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Salir.ForeColor = System.Drawing.Color.MintCream;
-            this.btn_Salir.Location = new System.Drawing.Point(13, 48);
-            this.btn_Salir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_Salir.Name = "btn_Salir";
-            this.btn_Salir.Size = new System.Drawing.Size(74, 26);
-            this.btn_Salir.TabIndex = 18;
-            this.btn_Salir.Text = "Salir";
-            this.btn_Salir.UseVisualStyleBackColor = false;
-            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
-            // 
-            // archivoBtn
-            // 
-            this.archivoBtn.BackColor = System.Drawing.Color.CadetBlue;
-            this.archivoBtn.FlatAppearance.BorderSize = 0;
-            this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.archivoBtn.Location = new System.Drawing.Point(173, 417);
-            this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.archivoBtn.Name = "archivoBtn";
-            this.archivoBtn.Size = new System.Drawing.Size(118, 28);
-            this.archivoBtn.TabIndex = 8;
-            this.archivoBtn.Text = "Archivo";
-            this.archivoBtn.UseVisualStyleBackColor = false;
-            this.archivoBtn.Visible = false;
-            this.archivoBtn.Click += new System.EventHandler(this.archivoBtn_Click_1);
+            this.btn_delete.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn_delete.FlatAppearance.BorderSize = 0;
+            this.btn_delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_delete.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btn_delete.ForeColor = System.Drawing.Color.MintCream;
+            this.btn_delete.Location = new System.Drawing.Point(204, 9);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(75, 26);
+            this.btn_delete.TabIndex = 5;
+            this.btn_delete.Text = "Eliminar";
+            this.btn_delete.UseVisualStyleBackColor = false;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // mainForm
             // 
@@ -536,5 +553,6 @@
         private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.Button btn_invite;
         private System.Windows.Forms.Button archivoBtn;
+        private System.Windows.Forms.Button btn_delete;
     }
 }

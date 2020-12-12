@@ -30,18 +30,26 @@ namespace Proyecto_POI
         {
 
             Verificacion check = new Verificacion();
-            if (check.IsValidEmail(textBoxEmail.Text))
-            {
-                Paquete paquete = new Paquete("registrarse", textBoxUser.Text + "," + textBoxPass.Text + "," + textBoxEmail.Text);
 
-                mainForm newForm = new mainForm(paquete);
-                this.Hide();
-                newForm.ShowDialog();
-                this.Close();
+            if (check.isValidLength(textBoxUser.Text) && check.isValidLength(textBoxEmail.Text))
+            {
+                if (check.IsValidEmail(textBoxEmail.Text))
+                {
+                    Paquete paquete = new Paquete("registrarse", textBoxUser.Text + "," + textBoxPass.Text + "," + textBoxEmail.Text);
+
+                    mainForm newForm = new mainForm(paquete);
+                    this.Hide();
+                    newForm.ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Su direccion de correo no es valida.");
+                }
             }
             else
             {
-                MessageBox.Show("Su direccion de correo no es valida.");
+                MessageBox.Show("Asegurese que este rellenando todos los datos");
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -57,34 +58,6 @@ namespace Utilities
                 }
             }
             return completo;
-        }
-
-        public static string getMessage(NetworkStream network)
-        {
-            try
-            {
-                byte[] sent = new byte[1024];
-                int readBytes = network.Read(sent, 0, sent.Length);
-                string message = Encoding.UTF8.GetString(sent, 0, readBytes);
-                return message;
-            }
-            catch (Exception)
-            {
-                return "FATAL ERROR!";
-            }
-        }
-
-        public static void sendMessage(NetworkStream network, string message)
-        {
-            try
-            {
-                byte[] toSend = Encoding.UTF8.GetBytes(message);
-                network.Write(toSend, 0, toSend.Length);
-            }
-            catch (Exception)
-            {
-
-            }
         }
     }
     /// <summary>
@@ -180,6 +153,7 @@ namespace Utilities
             Comando = comando;
             Contenido = contenido;
         }
+
         /// <summary>
         /// Es el contructor que utilizamos para hacer un paquete a partir de un texto ya serializado
         /// </summary>
@@ -245,9 +219,17 @@ namespace Utilities
 
 
     }
-
+    /// <summary>
+    /// Es la clase que se va a hacer referencia para descifrar o cifrar un mensaje
+    /// </summary>
     public class Cifrado
     {
+        /// <summary>
+        /// Sirve para encriptar un string, dados una key y un string
+        /// </summary>
+        /// <param name="key">Es la llave con la cual se va a encriptar el string</param>
+        /// <param name="plainText">Es el string a desencriptar</param>
+        /// <returns></returns>
         public static string EncryptString(string key, string plainText)
         {
             byte[] iv = new byte[16];
@@ -277,6 +259,12 @@ namespace Utilities
             return Convert.ToBase64String(array);
         }
 
+        /// <summary>
+        /// Sirve para desencriptar un texto dada una llave.
+        /// </summary>
+        /// <param name="key">Es la llave que utilizamos para desencriptar la llave</param>
+        /// <param name="cipherText">Es el texto a desencriptar</param>
+        /// <returns></returns>
         public static string DecryptString(string key, string cipherText)
         {
             byte[] iv = new byte[16];
@@ -302,19 +290,53 @@ namespace Utilities
         }
     }
 
+    /// <summary>
+    /// Clase que nos sirve para validar cosas como los correos
+    /// </summary>
     public class Verificacion
     {
+        /// <summary>
+        /// Sirve para validar un email, se asegura que tenga un arroba y un punto
+        /// </summary>
+        /// <param name="email">Es el email a validar</param>
+        /// <returns>Retorna un verdadero si el email es valido</returns>
         public bool IsValidEmail(string email)
         {
             try
             {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
+                Regex regex = new Regex(@"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$");
+
+                bool isValidEmail = regex.IsMatch(email);
+
+                if (isValidEmail)
+                    return true;
+                else
+                    return false;
+            }catch(Exception e)
             {
+                MessageBox.Show(e.ToString());
+                return false;
+
+            }
+            
+        }
+        public bool isValidLength(string text)
+        {
+            try
+            {
+                if(text.Length>0)
+                {
+                    return true;
+                }
                 return false;
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+
+            }
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,16 @@ namespace Server
 {
     partial class Servidor_Chat
     {
+        /// <summary>
+        /// Es la key con la que se encripta la información
+        /// </summary>
         string key = "a1b2c3d4e5f6g7h8";
+
+        /// <summary>
+        /// Sirve para publicar un mensaje publico.
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void publicMessage(Connection hcon, string msg)
         {
             Console.WriteLine(hcon.username + ": " + msg);
@@ -27,11 +37,16 @@ namespace Server
                 }
                 catch
                 {
-                    Console.WriteLine("Hubo un error jeje");
+                    Console.WriteLine("Hubo un error");
                 }
             }
         }
 
+        /// <summary>
+        /// Sirve para enviar mensaje en un grupo
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="mapa"></param>
         public void groupMessage(Connection hcon, string mapa)
         {
             List<string> msgUsername = Mapa.Deserializar(mapa);
@@ -43,7 +58,7 @@ namespace Server
 
             users.Sort();
 
-            
+
 
             Console.WriteLine("MensajeAGrupo " + usernameMapa + ": " + hcon.username + ": " + msgMapa);
             try
@@ -104,11 +119,15 @@ namespace Server
             }
             catch
             {
-                Console.WriteLine("Hubo un error jeje");
+                Console.WriteLine("Hubo un error");
             }
 
         }
 
+        /// <summary>
+        /// Sirve para conseguir los usuarios conectados
+        /// </summary>
+        /// <param name="hcon"></param>
         public void conseguirUsuarios(Connection hcon)
         {
             var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
@@ -120,6 +139,9 @@ namespace Server
             hcon.streamW.Flush();
         }
 
+        /// <summary>
+        /// Es la que se encarga de actualiza la lista de los grupos
+        /// </summary>
         public void actualizarlistausuarios()
         {
             foreach (Connection c in listConn)
@@ -129,20 +151,24 @@ namespace Server
                     var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
                     string usuarios = Mapa.Serializar(usuariosRegistrados);
 
-                    Paquete paquete = new Paquete("usuariosregistrados", usuarios);
 
+
+                    Paquete paquete = new Paquete("usuariosregistrados", usuarios);
                     c.streamW.WriteLine(paquete);
                     c.streamW.Flush();
-                    
+
                 }
                 catch
                 {
-                    Console.WriteLine("Hubo un error jeje");
+                    Console.WriteLine("Hubo un error");
                 }
             }
             actualizarlistagrupos();
         }
 
+        /// <summary>
+        /// Es la que se encarga de cargar la lista de los grupos
+        /// </summary>
         public void actualizarlistagrupos()
         {
             foreach (Connection c in listConn)
@@ -155,7 +181,7 @@ namespace Server
                     {
                         if (grupo.esGrupo == true)
                         {
-                            if(grupo.Users.Any(str => str.Contains(c.username)))
+                            if (grupo.Users.Any(str => str.Contains(c.username)))
                             {
                                 gruposLista.Add(grupo.nombreGrupo);
                             }
@@ -171,11 +197,15 @@ namespace Server
                 }
                 catch
                 {
-                    Console.WriteLine("Hubo un error jeje");
+                    Console.WriteLine("Hubo un error");
                 }
             }
         }
 
+        /// <summary>
+        /// Con esto consigues todos los mensajes publicos.
+        /// </summary>
+        /// <param name="hcon"></param>
         public void conseguirMensajesPublicos(Connection hcon)
         {
             string msgPublic = Mapa.Serializar(messagesPublic);
@@ -186,6 +216,11 @@ namespace Server
             hcon.streamW.Flush();
         }
 
+        /// <summary>
+        /// Con esto consigues los mensajes de un grupo especifico
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="grupoName"></param>
         public void conseguirMensajesGrupo(Connection hcon, string grupoName)
         {
             List<string> users = Mapa.Deserializar(grupoName + "," + hcon.username);
@@ -224,20 +259,27 @@ namespace Server
             hcon.streamW.Flush();
         }
 
+        /// <summary>
+        /// Con esto actualizamos la la lista de los conectados
+        /// </summary>
+        /// <param name="hcon"></param>
         public void seDesconecto(Connection hcon)
         {
             foreach (Connection c in listConn)
             {
-                Paquete paquete = new Paquete("sedesconecto", hcon.username);
-
                 if (c.username != hcon.username)
                 {
+                    Paquete paquete = new Paquete("sedesconecto", hcon.username);
                     c.streamW.WriteLine(paquete);
                     c.streamW.Flush();
                 }
             }
         }
 
+        /// <summary>
+        /// Es para saber si un usuario se conecto
+        /// </summary>
+        /// <param name="hcon"></param>
         public void seConecto(Connection hcon)
         {
             foreach (Connection c in listConn)
@@ -273,6 +315,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Con esto salimos de un grupo, esto dado un nombre
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void salirGrupo(Connection hcon, string msg)
         {
             foreach (var grupo in mensajesGrupo)
@@ -285,6 +332,11 @@ namespace Server
             actualizarlistausuarios();
         }
 
+        /// <summary>
+        /// Este metodo sirve para invitar a alguien a un grupo
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void invitarGrupo(Connection hcon, string msg)
         {
             List<string> userGroup = Mapa.Deserializar(msg);
@@ -295,19 +347,24 @@ namespace Server
                 {
                     foreach (var grupo in mensajesGrupo)
                     {
-                        if(grupo.nombreGrupo == userGroup[1])
+                        if (grupo.nombreGrupo == userGroup[1])
                         {
                             if (!grupo.Users.Any(str => str.Contains(userGroup[0])))
                             {
                                 grupo.Users.Add(userGroup[0]);
-                            }                            
-                        }   
+                            }
+                        }
                     }
                 }
             }
             actualizarlistausuarios();
         }
 
+        /// <summary>
+        /// Sirve para registrar usuarios, dado un username, password y email.
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void registrarUsuario(Connection hcon, string msg)
         {
             List<string> userdata = Mapa.Deserializar(msg);
@@ -321,7 +378,7 @@ namespace Server
             bool noEstaRegistrado = true;
             foreach (var usuario in usuariosRegister)
             {
-                if (usuario.username == useraux.username ||usuario.email == useraux.email)
+                if (usuario.username == useraux.username || usuario.email == useraux.email)
                 {
                     Paquete paquete = new Paquete("volverLoginRegister", "");
                     noEstaRegistrado = false;
@@ -337,6 +394,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Sirve para ingresar, esto dado un username y un password
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void ingresarUsuario(Connection hcon, string msg)
         {
             List<string> identificador = Mapa.Deserializar(msg);
@@ -361,6 +423,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Este metodo nos sirve para conseguir el correo de un usuario especifico, dado su username
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void recibircorreousuario(Connection hcon, string msg)
         {
             foreach (var usuario in usuariosRegister)
@@ -374,11 +441,16 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Sirve para invitar a alguien a una videollamada, esto dado un username
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void invitarVideollamada(Connection hcon, string msg)
         {
-            foreach(Connection c in listConn)
+            foreach (Connection c in listConn)
             {
-                if(c.username == msg)
+                if (c.username == msg)
                 {
                     Paquete paquete = new Paquete("recibirInvitacion", hcon.username);
                     c.streamW.WriteLine(paquete);
@@ -386,6 +458,11 @@ namespace Server
                 }
             }
         }
+        /// <summary>
+        /// Sirve para contestar una invitacion a una videollamada, regresa un si o un no y el usuario.
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
         public void responderVideollamada(Connection hcon, string msg)
         {
             List<string> content = Mapa.Deserializar(msg);
@@ -394,11 +471,85 @@ namespace Server
             {
                 if (c.username == content[0])
                 {
-                    Paquete paquete = new Paquete("videollamada", hcon.username+","+content[1]);
+                    Paquete paquete = new Paquete("videollamada", hcon.username + "," + content[1]);
                     c.streamW.WriteLine(paquete);
                     c.streamW.Flush();
                 }
             }
+        }
+
+        /// <summary>
+        /// Este metodo sirve para conseguir todos los datos de un usuario, esto dado su connection
+        /// </summary>
+        /// <param name="hcon"></param>
+        public void conseguirDatosUsuario(Connection hcon)
+        {
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == hcon.username)
+                {
+                    Paquete paquete = new Paquete("userData", usuario.username + "," + usuario.password + "," + usuario.email);
+                    hcon.streamW.WriteLine(paquete);
+                    hcon.streamW.Flush();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sirve para eliminar un usuario dado el Connection
+        /// </summary>
+        /// <param name="hcon"></param>
+        public void eliminarUsuario(Connection hcon)
+        {
+            foreach (var usuario in usuariosRegister)
+            {
+                if (usuario.username == hcon.username)
+                {
+                    usuariosRegister.Remove(usuario);
+                    Paquete paquete = new Paquete("volverLoginRegister", "");
+                    hcon.streamW.WriteLine(paquete);
+                    hcon.streamW.Flush();
+                    actualizarlistausuarios();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Editar usuarios, nada mas se edita el password y el email.
+        /// </summary>
+        /// <param name="hcon"></param>
+        /// <param name="msg"></param>
+        public void editarUsuario(Connection hcon, string msg)
+        {
+            List<string> datos = Mapa.Deserializar(msg);
+
+            int index = usuariosRegister.FindIndex(a => a.username == hcon.username);
+
+            Usuario auxUsuario = new Usuario();
+
+            auxUsuario.username = hcon.username;
+            auxUsuario.password = datos[1];
+            auxUsuario.email = datos[2];
+
+            usuariosRegister[index] = auxUsuario;
+
+            Paquete paquete = new Paquete("editarusuario", hcon.username+","+datos[1]+","+datos[2]);
+
+            hcon.streamW.WriteLine(paquete);
+            hcon.streamW.Flush();
+            actualizarlistausuarios();
+        }
+
+        void enviarPaquete(StreamWriter sw, string Comando, string Valores)
+        {
+            var key = "a1b2c3d4e5f6g7h8";
+
+            var encryptedCommand = Cifrado.EncryptString(key, Comando);
+            var encryptedValues = Cifrado.EncryptString(key, Valores);
+
+            Paquete paquete = new Paquete(encryptedCommand, encryptedValues);
+            sw.WriteLine(paquete);
+            sw.Flush();
         }
     }
 }

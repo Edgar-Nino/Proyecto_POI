@@ -263,6 +263,21 @@ namespace Server
                                 responderVideollamada(hcon, paquete.Contenido);
                                 break;
                             }
+                        case "conseguirdatausuario":
+                            {
+                                conseguirDatosUsuario(hcon);
+                                break;
+                            }
+                        case "eliminarusuario":
+                            {
+                                eliminarUsuario(hcon);
+                                break;
+                            }
+                        case "editarusuario":
+                            {
+                                editarUsuario(hcon, paquete.Contenido);
+                                break;
+                            }
                     }
                 }
                 catch
