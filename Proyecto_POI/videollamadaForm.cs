@@ -21,6 +21,8 @@ namespace Proyecto_POI
         int usuario;
         IPEndPoint endpoint;
 
+        Thread tE;
+        Thread tRV;
 
         UdpClient clientR;
         UdpClient clientS;
@@ -28,15 +30,27 @@ namespace Proyecto_POI
         Mat imagen;
         VideoCapture camara;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
         public videollamadaForm(int number)
         {
             usuario = number;
             InitializeComponent();
 
             camara = new VideoCapture(usuario);
-            new Thread(() => { EnviarVideo(); }).Start();
-        }
 
+            tE = new Thread(EnviarVideo);
+
+            tE.IsBackground = true;
+
+            tE.Start();
+        }
+        /// <summary>
+        /// Aquí recibimos el video
+        /// </summary>
+        /// <param name="receivePort">es el parametro que recibe el puerto</param>
         void RecibirVideo(string receivePort)
         {
             try
@@ -72,7 +86,12 @@ namespace Proyecto_POI
             string receivePort = (usuario == 0) ? "1933" : "1932";
 
             clientS = new UdpClient("127.0.0.1", ep);
-            Thread t = new Thread(RecibirVideo(receivePort));
+
+            tRV = new Thread(() => { RecibirVideo(receivePort); });
+
+            tRV.IsBackground = true;
+
+            tRV.Start();
             while (true)
             {
                 if (camara != null && camara.IsOpened)
@@ -89,6 +108,8 @@ namespace Proyecto_POI
 
         private void salirBtn_Click(object sender, EventArgs e)
         {
+            tRV.Abort();
+            tE.Abort();
             this.Close();
         }
     }
