@@ -7,8 +7,16 @@ using Utilities;
 
 namespace Proyecto_POI
 {
+    /// <summary>
+    /// Aqui se encuentran los metodos que utilizaremos 
+    /// </summary>
     partial class mainForm
     {
+        /// <summary>
+        /// Sirve para enviar mensajes encriptados al servidor
+        /// </summary>
+        /// <param name="Comando">Es el comando a realizar de parte del servidor</param>
+        /// <param name="Valores">Son los valores de la accion a realizar</param>
         void enviarPaquete(string Comando, string Valores)
         {
             var key = "a1b2c3d4e5f6g7h8";

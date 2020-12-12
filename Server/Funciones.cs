@@ -18,8 +18,8 @@ namespace Server
         /// <summary>
         /// Sirve para publicar un mensaje publico.
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void publicMessage(Connection hcon, string msg)
         {
             Console.WriteLine(hcon.username + ": " + msg);
@@ -42,7 +42,7 @@ namespace Server
         /// <summary>
         /// Sirve para enviar mensaje en un grupo
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         /// <param name="mapa"></param>
         public void groupMessage(Connection hcon, string mapa)
         {
@@ -120,7 +120,7 @@ namespace Server
         /// <summary>
         /// Sirve para conseguir los usuarios conectados
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void conseguirUsuarios(Connection hcon)
         {
             var usuariosRegistrados = usuariosRegister.Select(C => C.username).ToList();
@@ -188,7 +188,7 @@ namespace Server
         /// <summary>
         /// Con esto consigues todos los mensajes publicos.
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void conseguirMensajesPublicos(Connection hcon)
         {
             string msgPublic = Mapa.Serializar(messagesPublic);
@@ -200,7 +200,7 @@ namespace Server
         /// <summary>
         /// Con esto consigues los mensajes de un grupo especifico
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         /// <param name="grupoName"></param>
         public void conseguirMensajesGrupo(Connection hcon, string grupoName)
         {
@@ -238,7 +238,7 @@ namespace Server
         /// <summary>
         /// Con esto actualizamos la la lista de los conectados
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void seDesconecto(Connection hcon)
         {
             foreach (Connection c in listConn)
@@ -253,7 +253,7 @@ namespace Server
         /// <summary>
         /// Es para saber si un usuario se conecto
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void seConecto(Connection hcon)
         {
             foreach (Connection c in listConn)
@@ -290,8 +290,8 @@ namespace Server
         /// <summary>
         /// Con esto salimos de un grupo, esto dado un nombre
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void salirGrupo(Connection hcon, string msg)
         {
             foreach (var grupo in mensajesGrupo)
@@ -307,8 +307,8 @@ namespace Server
         /// <summary>
         /// Este metodo sirve para invitar a alguien a un grupo
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void invitarGrupo(Connection hcon, string msg)
         {
             List<string> userGroup = Mapa.Deserializar(msg);
@@ -335,8 +335,8 @@ namespace Server
         /// <summary>
         /// Sirve para registrar usuarios, dado un username, password y email.
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void registrarUsuario(Connection hcon, string msg)
         {
             List<string> userdata = Mapa.Deserializar(msg);
@@ -369,8 +369,8 @@ namespace Server
         /// <summary>
         /// Sirve para ingresar, esto dado un username y un password
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void ingresarUsuario(Connection hcon, string msg)
         {
             List<string> identificador = Mapa.Deserializar(msg);
@@ -397,8 +397,8 @@ namespace Server
         /// <summary>
         /// Este metodo nos sirve para conseguir el correo de un usuario especifico, dado su username
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void recibircorreousuario(Connection hcon, string msg)
         {
             foreach (var usuario in usuariosRegister)
@@ -413,8 +413,8 @@ namespace Server
         /// <summary>
         /// Sirve para invitar a alguien a una videollamada, esto dado un username
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void invitarVideollamada(Connection hcon, string msg)
         {
             foreach (Connection c in listConn)
@@ -428,8 +428,8 @@ namespace Server
         /// <summary>
         /// Sirve para contestar una invitacion a una videollamada, regresa un si o un no y el usuario.
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void responderVideollamada(Connection hcon, string msg)
         {
             List<string> content = Mapa.Deserializar(msg);
@@ -446,7 +446,7 @@ namespace Server
         /// <summary>
         /// Este metodo sirve para conseguir todos los datos de un usuario, esto dado su connection
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void conseguirDatosUsuario(Connection hcon)
         {
             foreach (var usuario in usuariosRegister)
@@ -461,7 +461,7 @@ namespace Server
         /// <summary>
         /// Sirve para eliminar un usuario dado el Connection
         /// </summary>
-        /// <param name="hcon"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
         public void eliminarUsuario(Connection hcon)
         {
             foreach (var usuario in usuariosRegister)
@@ -478,8 +478,8 @@ namespace Server
         /// <summary>
         /// Editar usuarios, nada mas se edita el password y el email.
         /// </summary>
-        /// <param name="hcon"></param>
-        /// <param name="msg"></param>
+        /// <param name="hcon">Es la conexion del cliente</param>
+        /// <param name="msg">Es el contenido del paquete, puede contener cualquie cosa</param>
         public void editarUsuario(Connection hcon, string msg)
         {
             List<string> datos = Mapa.Deserializar(msg);
@@ -498,7 +498,12 @@ namespace Server
 
             actualizarlistausuarios();
         }
-
+        /// <summary>
+        /// Sirve para enviar paquetes cifrados al cliente
+        /// </summary>
+        /// <param name="sw">Es el streamwriter del cliente a mandar</param>
+        /// <param name="Comando">Es la accion a realizar</param>
+        /// <param name="Valores">Son los parametros de la accion a realizar</param>
         void enviarPaqueteServer(StreamWriter sw, string Comando, string Valores)
         {
             var key = "a1b2c3d4e5f6g7h8";

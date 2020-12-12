@@ -99,6 +99,7 @@ namespace Server
         /// </summary>
         Connection con;
 
+
         /// <summary>
         /// Es la estructura para los usuarios, esto incluye username, contraseña y email.
         /// </summary>
@@ -133,7 +134,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Es el constructor de nuestra clase, aquí iniciamos todo
+        /// 
         /// </summary>
         public Servidor_Chat()
         {

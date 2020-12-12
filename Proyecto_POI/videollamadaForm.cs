@@ -20,18 +20,29 @@ namespace Proyecto_POI
     {
         int usuario;
         IPEndPoint endpoint;
-
+        /// <summary>
+        /// Es el thread encargado de enviar datos
+        /// </summary>
         Thread tE;
+        /// <summary>
+        /// Es el thread encargado de recibir datos
+        /// </summary>
         Thread tRV;
 
+        /// <summary>
+        /// Es el cliente recibir
+        /// </summary>
         UdpClient clientR;
+        /// <summary>
+        /// Es el cliente a mandar
+        /// </summary>
         UdpClient clientS;
 
         Mat imagen;
         VideoCapture camara;
 
         /// <summary>
-        /// 
+        /// Es el constructor de la videollamadaForm
         /// </summary>
         /// <param name="number"></param>
         public videollamadaForm(int number)
@@ -105,7 +116,11 @@ namespace Proyecto_POI
                 }
             }
         }
-
+        /// <summary>
+        /// Salir
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void salirBtn_Click(object sender, EventArgs e)
         {
             tRV.Abort();

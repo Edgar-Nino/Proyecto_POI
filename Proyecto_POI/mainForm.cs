@@ -16,7 +16,10 @@ namespace Proyecto_POI
 {
     public partial class mainForm : Form
     {
-
+        /// <summary>
+        /// Es el delegado para invocar el mensaje
+        /// </summary>
+        /// <param name="toAdd">Es el string del mensaje</param>
         public delegate void RecibirMensaje(string toAdd);
 
         /// <summary>
