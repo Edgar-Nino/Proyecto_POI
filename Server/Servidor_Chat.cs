@@ -179,17 +179,24 @@ namespace Server
         {
             Connection hcon = con;
 
-
-
             do
             {
                 try
                 {
+                    var key = "a1b2c3d4e5f6g7h8";
+
                     string tmp = hcon.streamR.ReadLine();
 
-                    Paquete paquete = new Paquete(tmp);
+                    //Paquete paquete = new Paquete(tmp);
 
-                    switch(paquete.Comando)
+                    string[] splitted = tmp.Split(':');
+
+                    var decryptedCommand = Cifrado.DecryptString(key, splitted[0]);
+                    var decryptedValues = Cifrado.DecryptString(key, splitted[1]);
+
+                    Paquete paquete = new Paquete(decryptedCommand, decryptedValues);
+
+                    switch (paquete.Comando)
                     {
                         case "mensajepublico":
                             {

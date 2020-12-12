@@ -89,7 +89,7 @@
             this.aceptarBtn.Name = "aceptarBtn";
             this.aceptarBtn.Size = new System.Drawing.Size(108, 27);
             this.aceptarBtn.TabIndex = 11;
-            this.aceptarBtn.Text = "Aceptar";
+            this.aceptarBtn.Text = "Registrarme";
             this.aceptarBtn.UseVisualStyleBackColor = false;
             this.aceptarBtn.Click += new System.EventHandler(this.aceptarBtn_Click);
             // 
@@ -98,9 +98,9 @@
             this.textBoxPass.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxPass.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPass.Location = new System.Drawing.Point(112, 234);
+            this.textBoxPass.Location = new System.Drawing.Point(92, 234);
             this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.Size = new System.Drawing.Size(169, 19);
+            this.textBoxPass.Size = new System.Drawing.Size(207, 19);
             this.textBoxPass.TabIndex = 7;
             // 
             // textBoxUser
@@ -108,16 +108,16 @@
             this.textBoxUser.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUser.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUser.Location = new System.Drawing.Point(112, 165);
+            this.textBoxUser.Location = new System.Drawing.Point(92, 165);
             this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(169, 19);
+            this.textBoxUser.Size = new System.Drawing.Size(207, 19);
             this.textBoxUser.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(108, 212);
+            this.label4.Location = new System.Drawing.Point(88, 212);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 16);
             this.label4.TabIndex = 4;
@@ -128,7 +128,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(108, 143);
+            this.label3.Location = new System.Drawing.Point(88, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 16);
             this.label3.TabIndex = 5;
@@ -149,7 +149,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(108, 280);
+            this.label5.Location = new System.Drawing.Point(88, 280);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 16);
             this.label5.TabIndex = 4;
@@ -161,9 +161,9 @@
             this.textBoxEmail.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxEmail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxEmail.Location = new System.Drawing.Point(112, 302);
+            this.textBoxEmail.Location = new System.Drawing.Point(92, 302);
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(169, 19);
+            this.textBoxEmail.Size = new System.Drawing.Size(207, 19);
             this.textBoxEmail.TabIndex = 7;
             // 
             // registroForm

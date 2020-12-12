@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -57,12 +59,14 @@ namespace Utilities
             return completo;
         }
 
-        public static string getMessage(NetworkStream network) {
-            try {
-            byte[] sent = new byte[1024];
-            int readBytes = network.Read(sent, 0, sent.Length);
-            string message = Encoding.UTF8.GetString(sent, 0, readBytes);
-            return message;
+        public static string getMessage(NetworkStream network)
+        {
+            try
+            {
+                byte[] sent = new byte[1024];
+                int readBytes = network.Read(sent, 0, sent.Length);
+                string message = Encoding.UTF8.GetString(sent, 0, readBytes);
+                return message;
             }
             catch (Exception)
             {
@@ -70,13 +74,15 @@ namespace Utilities
             }
         }
 
-        public static void sendMessage(NetworkStream network, string message) {
+        public static void sendMessage(NetworkStream network, string message)
+        {
             try
             {
                 byte[] toSend = Encoding.UTF8.GetBytes(message);
                 network.Write(toSend, 0, toSend.Length);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
             }
         }
@@ -202,7 +208,7 @@ namespace Utilities
             return paquete.Serializar();
         }
 
-        
+
     }
     /// <summary>
     /// Esta clase la utilizamos para abrir un prompt, el cual nos servira para conseguir información.
@@ -236,7 +242,79 @@ namespace Utilities
 
             return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
+
+
     }
 
-    
+    public class Cifrado
+    {
+        public static string EncryptString(string key, string plainText)
+        {
+            byte[] iv = new byte[16];
+            byte[] array;
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(plainText);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(array);
+        }
+
+        public static string DecryptString(string key, string cipherText)
+        {
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(cipherText);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class Verificacion
+    {
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
 }

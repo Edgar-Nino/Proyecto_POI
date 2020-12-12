@@ -28,12 +28,21 @@ namespace Proyecto_POI
 
         private void aceptarBtn_Click(object sender, EventArgs e)
         {
-            Paquete paquete = new Paquete("registrarse", textBoxUser.Text + "," + textBoxPass.Text + "," + textBoxEmail.Text);
 
-            mainForm newForm = new mainForm(paquete);
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+            Verificacion check = new Verificacion();
+            if (check.IsValidEmail(textBoxEmail.Text))
+            {
+                Paquete paquete = new Paquete("registrarse", textBoxUser.Text + "," + textBoxPass.Text + "," + textBoxEmail.Text);
+
+                mainForm newForm = new mainForm(paquete);
+                this.Hide();
+                newForm.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Su direccion de correo no es valida.");
+            }
         }
     }
 }

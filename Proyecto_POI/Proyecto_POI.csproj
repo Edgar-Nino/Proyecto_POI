@@ -82,6 +82,7 @@
       <DependentUpon>correoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Draggable.cs" />
+    <Compile Include="Emoji.cs" />
     <Compile Include="Funciones.cs">
       <SubType>Form</SubType>
     </Compile>

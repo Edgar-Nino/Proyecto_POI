@@ -36,9 +36,21 @@ namespace Proyecto_POI
         /// </summary>
         static private TcpClient client = new TcpClient();
         /// <summary>
-        /// Es el username con el que identificamos al usuario actual
+        /// Es el username con el que identificamos al usuario actual.
         /// </summary>
         static private string username = "unknown";
+        /// <summary>
+        /// Es la contraseña del usuario.
+        /// </summary>
+        static private string password = "unknown";
+        /// <summary>
+        /// Es el email del usuario.
+        /// </summary>
+        static private string email = "unknown";
+        /// <summary>
+        /// Uso global para conseguir el username, password y email.
+        /// </summary>
+        List<string> userContent;
         /// <summary>
         /// Este es el paquete que le enviamos al usuario para que pueda ingresar o registrarse
         /// </summary>
@@ -53,6 +65,15 @@ namespace Proyecto_POI
 
             Paquete paquete = new Paquete(msg);
 
+            //var key = "a1b2c3d4e5f6g7h8";
+
+            //string[] splitted = msg.Split(':');
+
+            //var decryptedCommand = Cifrado.DecryptString(key, splitted[0]);
+            //var decryptedValues = Cifrado.DecryptString(key, splitted[1]);
+
+            //Paquete paquete = new Paquete(decryptedCommand, decryptedValues);
+
             switch (paquete.Comando)
             {
                 case "usuariosregistrados":
@@ -64,7 +85,10 @@ namespace Proyecto_POI
                         btn_Salir.Visible = false;
 
                         List<string> listaUsuarios = Mapa.Deserializar(paquete.Contenido);
-                        lb_Grupos.Items.Add("PUBLICO");
+                        lb_Grupos.Items.Add("GLOBAL");
+
+                        lb_Grupos.SelectedIndex = 0;
+
                         foreach (string usuario in listaUsuarios)
                         {
                             if (usuario != username)
@@ -77,7 +101,7 @@ namespace Proyecto_POI
                         List<string> listaGrupos = Mapa.Deserializar(paquete.Contenido);
                         foreach (string grupos in listaGrupos)
                         {
-                                lb_Grupos.Items.Add(grupos);
+                            lb_Grupos.Items.Add(grupos);
                         }
                         break;
                     }
@@ -95,7 +119,12 @@ namespace Proyecto_POI
 
                         foreach (string mensaje in listaMensajes)
                         {
-                            listChat.Items.Add(mensaje);
+                            string msgaux = mensaje;
+                            msgaux = msgaux.Replace("<3", "💜");
+                            msgaux = msgaux.Replace(";)", "😉");
+                            msgaux = msgaux.Replace("=D", "😃");
+                            msgaux = msgaux.Replace(">=(", "😡");
+                            listChat.Items.Add(msgaux);
                         }
                         break;
                     }
@@ -104,7 +133,12 @@ namespace Proyecto_POI
                         Console.Beep();
                         if (lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1)
                         {
-                            listChat.Items.Add(paquete.Contenido);
+                            string msgaux = paquete.Contenido;
+                            msgaux = msgaux.Replace("<3", "💜");
+                            msgaux = msgaux.Replace(";)", "😉");
+                            msgaux = msgaux.Replace("=D", "😃");
+                            msgaux = msgaux.Replace(">=(", "😡");
+                            listChat.Items.Add(msgaux);
                         }
                         break;
                     }
@@ -130,8 +164,8 @@ namespace Proyecto_POI
                             listaMensajes.RemoveAt(0);
 
                             string userC = "";
-                            
-                            if(esGrupo!="True")
+
+                            if (esGrupo != "True")
                             {
                                 userC = listaMensajes.First();
 
@@ -147,13 +181,18 @@ namespace Proyecto_POI
                                 btn_Salir.Visible = true;
                                 L_IsConnected.Text = "";
                             }
-                           
 
-                            
+
+
 
                             foreach (string mensaje in listaMensajes)
                             {
-                                listChat.Items.Add(mensaje);
+                                string msgaux = mensaje;
+                                msgaux = msgaux.Replace("<3", "💜");
+                                msgaux = msgaux.Replace(";)", "😉");
+                                msgaux = msgaux.Replace("=D", "😃");
+                                msgaux = msgaux.Replace(">=(", "😡");
+                                listChat.Items.Add(msgaux);
                             }
                         }
 
@@ -167,11 +206,16 @@ namespace Proyecto_POI
 
                         Console.Beep();
 
-                        if(!(lb_Grupos.Text==""))
+                        if (!(lb_Grupos.Text == ""))
                         {
                             if (lb_Grupos.Text == grupoNombre[0] || lb_Grupos.Text == grupoNombre[1])
                             {
-                                listChat.Items.Add(Contenido[0]);
+                                string msgaux = Contenido[0];
+                                msgaux = msgaux.Replace("<3", "💜") ;
+                                msgaux = msgaux.Replace(";)", "😉") ;
+                                msgaux = msgaux.Replace("=D", "😃") ;
+                                msgaux = msgaux.Replace(">=(", "😡");
+                                listChat.Items.Add(msgaux);
                             }
                         }
                         break;
@@ -180,7 +224,7 @@ namespace Proyecto_POI
                     {
                         if (!(lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1))
                         {
-                            if(lb_Grupos.Text==paquete.Contenido)
+                            if (lb_Grupos.Text == paquete.Contenido)
                             {
                                 L_IsConnected.Text = "Desconectado";
                                 videoBtn.Enabled = false;
@@ -219,7 +263,7 @@ namespace Proyecto_POI
                         DialogResult dialogResult = MessageBox.Show("¿Quieres aceptar la invitación?", usuario + " te ha invitado a una videollamada", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            enviarPaquete("respondervideollamada", usuario + ","+"si");
+                            enviarPaquete("respondervideollamada", usuario + "," + "si");
 
                             videollamadaForm newForm = new videollamadaForm(1);
                             newForm.Show();
@@ -234,14 +278,14 @@ namespace Proyecto_POI
                 case "videollamada":
                     {
                         List<string> content = Mapa.Deserializar(paquete.Contenido);
-                        if(content[1]=="si")
+                        if (content[1] == "si")
                         {
                             videollamadaForm newForm = new videollamadaForm(0);
                             newForm.Show();
                         }
                         else
                         {
-                            MessageBox.Show(content[0]+" no acepto tu invitación");
+                            MessageBox.Show(content[0] + " no acepto tu invitación");
                         }
                         break;
                     }
@@ -249,8 +293,8 @@ namespace Proyecto_POI
         }
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
-            
+
+
         }
         /// <summary>
         /// Es la sobrecarga al constructor de nuestro mainForm, con esto puede recibir el login o register.
@@ -270,7 +314,7 @@ namespace Proyecto_POI
         public mainForm()
         {
             InitializeComponent();
-            
+
         }
 
         /// <summary>
@@ -316,15 +360,15 @@ namespace Proyecto_POI
 
                     t.Start();
 
-                    List<string> userContent = Mapa.Deserializar(paqueteInicial.Contenido);
+                    List<string> userContentConn = Mapa.Deserializar(paqueteInicial.Contenido);
 
-                    enviarPaquete(paqueteInicial.Comando,paqueteInicial.Contenido);
+                    enviarPaquete(paqueteInicial.Comando, paqueteInicial.Contenido);
 
                     enviarPaquete("conseguirusuarios", "");
 
                     enviarPaquete("conseguirmensajespublicos", "");
 
-                    
+
                 }
                 else
                 {
@@ -362,7 +406,14 @@ namespace Proyecto_POI
 
             username = userContent[0];
 
+            password = userContent[1];
+            email = userContent[2];
+
             l_Username.Text = username;
+
+            textBoxUser.Text = username;
+            textBoxPass.Text = password;
+            textBoxMail.Text = email;
 
             while (!this.IsHandleCreated)
                 System.Threading.Thread.Sleep(1);
@@ -376,16 +427,27 @@ namespace Proyecto_POI
         /// <param name="e"></param>
         private void sendBtn_Click(object sender, EventArgs e)
         {
-            if (lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1)
+            if (!editMensaje.Text.Contains(":"))
             {
-                enviarPaquete("mensajepublico", editMensaje.Text);
-                editMensaje.Clear();
+                if (!editMensaje.Text.Equals(""))
+                {
+                    if (lb_Grupos.SelectedIndex == 0 || lb_Grupos.SelectedIndex == -1)
+                    {
+                        enviarPaquete("mensajepublico", editMensaje.Text);
+                        editMensaje.Clear();
+                    }
+                    else
+                    {
+                        enviarPaquete("mensajegrupo", lb_Grupos.Text + "," + editMensaje.Text);
+                        editMensaje.Clear();
+                    }
+                }
             }
             else
             {
-                enviarPaquete("mensajegrupo", lb_Grupos.Text + "," + editMensaje.Text);
-                editMensaje.Clear();
+                MessageBox.Show("No se admite :");
             }
+
 
 
         }
@@ -423,17 +485,14 @@ namespace Proyecto_POI
         /// <param name="e"></param>
         private void correoBtn_Click(object sender, EventArgs e)
         {
-            
+
             if ((Application.OpenForms["correoForm"] as correoForm) != null)
             {
                 //Form is already open
             }
             else
             {
-                Paquete paquete = new Paquete("recibircorreousuario", lb_Grupos.Text);
-
-                streamw.WriteLine(paquete);
-                streamw.Flush();
+                enviarPaquete("recibircorreousuario", lb_Grupos.Text);
             }
         }
 
@@ -476,31 +535,73 @@ namespace Proyecto_POI
         {
 
             cuentaPanel.Show();
+            videoBtn.Hide();
+            correoBtn.Hide();
+            l_Username.Hide();
+            L_IsConnected.Hide();
 
         }
-
+        /// <summary>
+        /// Sirve para editar el usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editBtn_Click(object sender, EventArgs e)
         {
             textBoxUser.Enabled = true;
             textBoxPass.Enabled = true;
             textBoxMail.Enabled = true;
             editBtn.Enabled = false;
+            editAceptarBtn.Enabled = true;
+            editCancelarBtn.Enabled = true;
+            editAceptarBtn.Show();
+            editCancelarBtn.Show();
         }
 
+        /// <summary>
+        /// Es para aceptar los cambios del usuario;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editAceptarBtn_Click(object sender, EventArgs e)
         {
             textBoxUser.Enabled = false;
             textBoxPass.Enabled = false;
             textBoxMail.Enabled = false;
             editBtn.Enabled = true;
+            editAceptarBtn.Hide();
+            editCancelarBtn.Hide();
+
+            textBoxUser.Text = username;
+            textBoxPass.Text = password;
+            textBoxMail.Text = email;
+
+            //username = userContent[0];
+            // password = userContent[1];
+            //email = userContent[2];
         }
 
+        /// <summary>
+        /// Cancelar editar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editCancelarBtn_Click(object sender, EventArgs e)
         {
             textBoxUser.Enabled = false;
             textBoxPass.Enabled = false;
             textBoxMail.Enabled = false;
             editBtn.Enabled = true;
+            editAceptarBtn.Hide();
+            editCancelarBtn.Hide();
+
+            textBoxUser.Text = username;
+            textBoxPass.Text = password;
+            textBoxMail.Text = email;
+
+            //username = userContent[0];
+            //password = userContent[1];
+            //email = userContent[2];
         }
 
         /// <summary>
@@ -511,8 +612,13 @@ namespace Proyecto_POI
         private void chatsBtn_Click(object sender, EventArgs e)
         {
             cuentaPanel.Hide();
+            videoBtn.Show();
+            correoBtn.Show();
+            l_Username.Show();
+            L_IsConnected.Show();
+
             string value = Prompt.ShowDialog("Ingresa el nombre del grupo", "Crear grupo");
-            if(value.Length==0)
+            if (value.Length == 0)
             {
                 MessageBox.Show("No ingresaste nada");
             }
@@ -560,7 +666,7 @@ namespace Proyecto_POI
             }
             else
             {
-                enviarPaquete("invitargrupo", value+","+lb_Grupos.Text);
+                enviarPaquete("invitargrupo", value + "," + lb_Grupos.Text);
             }
         }
     }

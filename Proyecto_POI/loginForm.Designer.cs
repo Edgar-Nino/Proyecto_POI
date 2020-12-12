@@ -64,11 +64,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Script MT Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkSalmon;
             this.label2.Location = new System.Drawing.Point(153, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 44);
+            this.label2.Size = new System.Drawing.Size(101, 42);
             this.label2.TabIndex = 2;
             this.label2.Text = "Chat";
             // 
@@ -77,16 +77,16 @@
             this.textBoxUser.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUser.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUser.Location = new System.Drawing.Point(109, 179);
+            this.textBoxUser.Location = new System.Drawing.Point(89, 179);
             this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(169, 19);
+            this.textBoxUser.Size = new System.Drawing.Size(211, 19);
             this.textBoxUser.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(105, 157);
+            this.label3.Location = new System.Drawing.Point(85, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 16);
             this.label3.TabIndex = 0;
@@ -97,7 +97,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(105, 230);
+            this.label4.Location = new System.Drawing.Point(85, 230);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 16);
             this.label4.TabIndex = 0;
@@ -109,9 +109,10 @@
             this.textBoxPass.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxPass.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPass.Location = new System.Drawing.Point(109, 252);
+            this.textBoxPass.Location = new System.Drawing.Point(89, 252);
             this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.Size = new System.Drawing.Size(169, 19);
+            this.textBoxPass.PasswordChar = '*';
+            this.textBoxPass.Size = new System.Drawing.Size(211, 19);
             this.textBoxPass.TabIndex = 2;
             // 
             // aceptarBtn

@@ -52,13 +52,13 @@
             this.correoBtn = new System.Windows.Forms.Button();
             this.videoBtn = new System.Windows.Forms.Button();
             this.listChat = new System.Windows.Forms.ListBox();
-            this.archivoBtn = new System.Windows.Forms.Button();
             this.sendBtn = new System.Windows.Forms.Button();
             this.editMensaje = new System.Windows.Forms.TextBox();
             this.l_Username = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btn_invite = new System.Windows.Forms.Button();
             this.btn_Salir = new System.Windows.Forms.Button();
+            this.archivoBtn = new System.Windows.Forms.Button();
             this.DragControl.SuspendLayout();
             this.panel2.SuspendLayout();
             this.chatViewPanel.SuspendLayout();
@@ -213,9 +213,9 @@
             this.cuentaPanel.Controls.Add(this.editCancelarBtn);
             this.cuentaPanel.Controls.Add(this.editBtn);
             this.cuentaPanel.Controls.Add(this.label4);
-            this.cuentaPanel.Location = new System.Drawing.Point(10, 113);
+            this.cuentaPanel.Location = new System.Drawing.Point(33, 89);
             this.cuentaPanel.Name = "cuentaPanel";
-            this.cuentaPanel.Size = new System.Drawing.Size(358, 285);
+            this.cuentaPanel.Size = new System.Drawing.Size(358, 358);
             this.cuentaPanel.TabIndex = 15;
             // 
             // textBoxMail
@@ -223,9 +223,9 @@
             this.textBoxMail.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxMail.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxMail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMail.Location = new System.Drawing.Point(89, 205);
+            this.textBoxMail.Location = new System.Drawing.Point(57, 205);
             this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(169, 19);
+            this.textBoxMail.Size = new System.Drawing.Size(222, 19);
             this.textBoxMail.TabIndex = 18;
             // 
             // textBoxPass
@@ -233,16 +233,16 @@
             this.textBoxPass.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxPass.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPass.Location = new System.Drawing.Point(89, 137);
+            this.textBoxPass.Location = new System.Drawing.Point(57, 137);
             this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.Size = new System.Drawing.Size(169, 19);
+            this.textBoxPass.Size = new System.Drawing.Size(222, 19);
             this.textBoxPass.TabIndex = 19;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(85, 46);
+            this.label5.Location = new System.Drawing.Point(53, 46);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 16);
             this.label5.TabIndex = 17;
@@ -253,7 +253,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(85, 183);
+            this.label6.Location = new System.Drawing.Point(53, 183);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 16);
             this.label6.TabIndex = 15;
@@ -265,16 +265,16 @@
             this.textBoxUser.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxUser.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUser.Location = new System.Drawing.Point(89, 68);
+            this.textBoxUser.Location = new System.Drawing.Point(57, 68);
             this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(169, 19);
+            this.textBoxUser.Size = new System.Drawing.Size(222, 19);
             this.textBoxUser.TabIndex = 20;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(85, 115);
+            this.label7.Location = new System.Drawing.Point(53, 115);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 16);
             this.label7.TabIndex = 16;
@@ -296,6 +296,7 @@
             this.editAceptarBtn.Text = "Aceptar";
             this.editAceptarBtn.UseVisualStyleBackColor = false;
             this.editAceptarBtn.Click += new System.EventHandler(this.editAceptarBtn_Click);
+            this.editAceptarBtn.Visible = false;
             // 
             // editCancelarBtn
             // 
@@ -312,6 +313,7 @@
             this.editCancelarBtn.Text = "Cancelar";
             this.editCancelarBtn.UseVisualStyleBackColor = false;
             this.editCancelarBtn.Click += new System.EventHandler(this.editCancelarBtn_Click);
+            this.editCancelarBtn.Visible = false;
             // 
             // editBtn
             // 
@@ -382,22 +384,6 @@
             this.listChat.Size = new System.Drawing.Size(346, 228);
             this.listChat.TabIndex = 11;
             // 
-            // archivoBtn
-            // 
-            this.archivoBtn.BackColor = System.Drawing.Color.CadetBlue;
-            this.archivoBtn.FlatAppearance.BorderSize = 0;
-            this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
-            this.archivoBtn.Location = new System.Drawing.Point(173, 417);
-            this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.archivoBtn.Name = "archivoBtn";
-            this.archivoBtn.Size = new System.Drawing.Size(118, 28);
-            this.archivoBtn.TabIndex = 8;
-            this.archivoBtn.Text = "Archivo";
-            this.archivoBtn.UseVisualStyleBackColor = false;
-            this.archivoBtn.Click += new System.EventHandler(this.archivoBtn_Click_1);
-            // 
             // sendBtn
             // 
             this.sendBtn.BackColor = System.Drawing.Color.DarkSalmon;
@@ -418,6 +404,7 @@
             // 
             this.editMensaje.BackColor = System.Drawing.Color.WhiteSmoke;
             this.editMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.editMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editMensaje.Location = new System.Drawing.Point(34, 329);
             this.editMensaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.editMensaje.Multiline = true;
@@ -468,6 +455,23 @@
             this.btn_Salir.UseVisualStyleBackColor = false;
             this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
             // 
+            // archivoBtn
+            // 
+            this.archivoBtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.archivoBtn.FlatAppearance.BorderSize = 0;
+            this.archivoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.archivoBtn.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.archivoBtn.ForeColor = System.Drawing.Color.MintCream;
+            this.archivoBtn.Location = new System.Drawing.Point(173, 417);
+            this.archivoBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.archivoBtn.Name = "archivoBtn";
+            this.archivoBtn.Size = new System.Drawing.Size(118, 28);
+            this.archivoBtn.TabIndex = 8;
+            this.archivoBtn.Text = "Archivo";
+            this.archivoBtn.UseVisualStyleBackColor = false;
+            this.archivoBtn.Visible = false;
+            this.archivoBtn.Click += new System.EventHandler(this.archivoBtn_Click_1);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -513,7 +517,6 @@
         private System.Windows.Forms.Button correoBtn;
         private System.Windows.Forms.Button videoBtn;
         private System.Windows.Forms.ListBox listChat;
-        private System.Windows.Forms.Button archivoBtn;
         private System.Windows.Forms.Button sendBtn;
         private System.Windows.Forms.TextBox editMensaje;
         private System.Windows.Forms.Label l_Username;
@@ -532,5 +535,6 @@
         private System.Windows.Forms.Label L_IsConnected;
         private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.Button btn_invite;
+        private System.Windows.Forms.Button archivoBtn;
     }
 }

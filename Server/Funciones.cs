@@ -9,11 +9,12 @@ namespace Server
 {
     partial class Servidor_Chat
     {
-
+        string key = "a1b2c3d4e5f6g7h8";
         public void publicMessage(Connection hcon, string msg)
         {
             Console.WriteLine(hcon.username + ": " + msg);
             string message = hcon.username + ": " + msg;
+
             messagesPublic.Add(message);
             foreach (Connection c in listConn)
             {
@@ -41,6 +42,8 @@ namespace Server
             List<string> users = Mapa.Deserializar(usernameMapa + "," + hcon.username);
 
             users.Sort();
+
+            
 
             Console.WriteLine("MensajeAGrupo " + usernameMapa + ": " + hcon.username + ": " + msgMapa);
             try
@@ -318,7 +321,7 @@ namespace Server
             bool noEstaRegistrado = true;
             foreach (var usuario in usuariosRegister)
             {
-                if (usuario.username == useraux.username)
+                if (usuario.username == useraux.username ||usuario.email == useraux.email)
                 {
                     Paquete paquete = new Paquete("volverLoginRegister", "");
                     noEstaRegistrado = false;

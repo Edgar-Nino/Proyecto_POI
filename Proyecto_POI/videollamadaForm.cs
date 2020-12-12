@@ -39,9 +39,16 @@ namespace Proyecto_POI
 
         void RecibirVideo(string receivePort)
         {
+            try
+            {
+                endpoint = new IPEndPoint(IPAddress.Any, Int32.Parse(receivePort));
+                clientR = new UdpClient(endpoint);
+            }
+            catch
+            {
+                MessageBox.Show("Hay un error con el endpoint");
+            }
             
-            endpoint = new IPEndPoint(IPAddress.Any, Int32.Parse(receivePort));
-            clientR = new UdpClient(endpoint);
             while (true)
             {
                 try
@@ -56,15 +63,16 @@ namespace Proyecto_POI
                 }
             }
         }
-
+        /// <summary>
+        /// Es la parte donde se manda el video.
+        /// </summary>
         void EnviarVideo()
         {
             int ep = (usuario == 0) ? 1932 : 1933;
             string receivePort = (usuario == 0) ? "1933" : "1932";
 
             clientS = new UdpClient("127.0.0.1", ep);
-
-            new Thread(() => { RecibirVideo(receivePort); }).Start();
+            Thread t = new Thread(RecibirVideo(receivePort));
             while (true)
             {
                 if (camara != null && camara.IsOpened)
@@ -81,9 +89,6 @@ namespace Proyecto_POI
 
         private void salirBtn_Click(object sender, EventArgs e)
         {
-            mainForm newForm = new mainForm();
-            this.Hide();
-            newForm.ShowDialog();
             this.Close();
         }
     }
